@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="930.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tecno.biblioteca.controller.CrearDevolucionController">
+   <top>
+      <Pane prefHeight="100.0" prefWidth="930.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="titulo" layoutX="14.0" layoutY="30.0" prefHeight="40.0" prefWidth="300.0" />
+         </children>
+      </Pane>
+   </top>
+   <bottom>
+      <Pane prefHeight="100.0" prefWidth="930.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="bot_regresar" layoutX="417.0" layoutY="38.0" mnemonicParsing="false" onAction="#RegresarAction" text="Regresar" />
+            <Button fx:id="bot_siguiente" defaultButton="true" layoutX="520.0" layoutY="38.0" mnemonicParsing="false" onAction="#SiguienteAction" text="Siguiente" />
+            <Button fx:id="bot_guardar" defaultButton="true" disable="true" layoutX="624.0" layoutY="38.0" mnemonicParsing="false" onAction="#GuardarAction" text="Guardar" />
+            <Button fx:id="bot_cancelar" cancelButton="true" layoutX="313.0" layoutY="38.0" mnemonicParsing="false" onAction="#CancelarAction" text="Cancelar" />
+         </children>
+      </Pane>
+   </bottom>
+   <center>
+      <StackPane fx:id="stack" prefHeight="405.0" prefWidth="930.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

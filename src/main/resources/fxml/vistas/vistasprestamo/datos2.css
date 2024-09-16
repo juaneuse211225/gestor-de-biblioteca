@@ -1,0 +1,124 @@
+.flat-button{
+	-fx-background-color: transparent;
+	-fx-border-color: transparent;
+	-fx-text-fill:  #14919B;
+	-fx-font-size: 20px;
+	-fx-padding: 10px 20px;
+}
+
+.flat-button:hover{
+	-fx-background-color:  #14919B;
+	-fx-text-fill:  #FFFFFF;
+
+}
+
+.flat-button:pressed{
+	-fx-background-color: #42d0da;
+	-fx-text-fill:  #FFFFFF;
+}
+/* Estilo para el TextField */
+#texto{
+    -fx-background-color: white;    /* Fondo blanco */
+    -fx-text-fill: #0b6477;         /* Color del texto */
+    -fx-border-color:  #14919B; /* Borde solo abajo */
+    -fx-border-width: 0 0 1px 0;    /* Grosor del borde solo abajo */
+    -fx-padding: 5px;               /* Espaciado interno para que el texto no quede pegado al borde */
+}
+
+/* Estilo cuando el TextField está enfocado */
+#texto:focused {
+    -fx-border-color: #14919B; /* Mantiene el borde solo abajo */
+    -fx-background-color: white;   /* Fondo blanco mientras se edita */
+    -fx-text-fill: #0b6477;        /* Color del texto mientras se edita */
+}
+
+
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #14919B;
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;
+    -fx-padding: 0 0 0 0;
+}
+
+.combo-box .text {
+    -fx-fill: #14919B;
+}
+
+
+.combo-box .combo-box-popup {
+    -fx-background-color: white;
+    -fx-border-color: #14919B;
+    -fx-border-radius: 5px;
+    
+}
+
+
+
+.arrow {
+    -fx-background-color: white; /* Elimina cualquier fondo adicional */
+    -fx-fill: white;                   /* Cambia el color del ícono del calendario a blanco */
+}
+.combo-box .arrow-button {
+    -fx-background-color: #14919B;
+    
+}
+
+
+.table-view{
+	-fx-background-color: #ffffff;
+}
+
+.table-view .column-header{
+	-fx-font-weight: bold;
+	-fx-background-color: #1abbc8;
+	
+}
+
+
+.table-view .column-header .label{
+	-fx-text-fill: #ffffff;
+}
+
+.table-view .table-row-cell:selected{
+	-fx-background-color: #0b6477;
+	-fx-text-fill: #ffffff;
+}
+
+/* Estilo para el ContextMenu (TableMenu) en el TableView */
+.context-menu {
+    -fx-background-color: white;  /* Fondo del menú */
+    -fx-border-color: #0b6477;    /* Borde del menú */
+    -fx-border-radius: 8px;       /* Bordes redondeados */
+    -fx-background-radius: 8px;   /* Redondear el fondo para coincidir con el borde */
+    -fx-padding: 5px;             /* Espaciado interno */
+}
+
+/* Estilo para los elementos del menú */
+.context-menu .menu-item {
+    -fx-text-fill: #0b6477;       /* Color del texto en los elementos del menú */
+    -fx-background-color: white;  /* Fondo blanco para los elementos */
+}
+
+/* Estilo al pasar el ratón sobre los elementos del menú */
+.context-menu .menu-item:hover {
+    -fx-background-color: #e0f7fa; /* Fondo claro al pasar el ratón */
+    -fx-text-fill: #0b6477;        /* Color del texto al pasar el ratón */
+}
+
+/* Estilo al seleccionar un elemento del menú */
+.context-menu .menu-item:focused {
+    -fx-background-color: #0b6477; /* Fondo del elemento seleccionado */
+    -fx-text-fill: white;          /* Texto blanco para el elemento seleccionado */
+}
+
+/* Estilo de las flechas que indican submenús */
+.context-menu .arrow-button {
+    -fx-background-color: #1abbc8;
+}
+
+.context-menu .arrow {
+    -fx-background-color: white; /* Elimina cualquier fondo adicional */
+    -fx-fill: white;  
+}
+

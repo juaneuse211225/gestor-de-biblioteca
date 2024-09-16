@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="930.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="tablaDetallePrestamo" layoutX="14.0" layoutY="54.0" prefHeight="200.0" prefWidth="435.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="50.0">
+        <columns>
+          <TableColumn fx:id="Column_isbn1" prefWidth="75.0" text="ISBN" />
+          <TableColumn fx:id="Column_titulo1" prefWidth="254.0" text="TITULO" />
+            <TableColumn fx:id="Column_cantidad1" minWidth="0.0" prefWidth="105.0" text="CANTIDAD PRESTADA" />
+        </columns>
+      </TableView>
+      <TableView fx:id="tablaDetalleDevolcion" layoutX="532.0" layoutY="54.0" prefHeight="200.0" prefWidth="435.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="15.0">
+        <columns>
+          <TableColumn fx:id="Column_isbn2" prefWidth="75.0" text="ISBN" />
+          <TableColumn fx:id="Column_titulo2" prefWidth="75.0" text="TITULO" />
+            <TableColumn fx:id="Column_cantidad2" prefWidth="75.0" text="CANTIDAD A DEVOLVER" />
+        </columns>
+      </TableView>
+      <Button fx:id="Agregar" layoutX="445.0" layoutY="152.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="&gt;" />
+      <Button fx:id="Quitar" layoutX="445.0" layoutY="214.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="&lt;" />
+      <TextField fx:id="text_buscar" layoutX="14.0" layoutY="23.0" prefWidth="325.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="15.0" />
+      <ComboBox fx:id="combo_filtro" layoutX="345.0" layoutY="15.0" prefWidth="100.0" AnchorPane.topAnchor="15.0" />
+   </children>
+</AnchorPane>
