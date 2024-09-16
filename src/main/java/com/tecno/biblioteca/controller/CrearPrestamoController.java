@@ -61,12 +61,18 @@ public class CrearPrestamoController {
 
     @FXML
     void CancelAction(ActionEvent event) {
-
+        
     }
     
     @FXML
     void RegresarAction(ActionEvent event) {
+        this.prestamo = controlador1.getPrestamo();
 
+        bot_guardar.setDisable(true);
+        bot_siguiente.setDisable(false);
+        bot_atras.setDisable(true);
+        
+        mostrarPanel(stack, datosprestamo1);
     }
 
     @FXML
@@ -102,18 +108,13 @@ public class CrearPrestamoController {
 
     @FXML
     void SiguienteAction(ActionEvent event) {
-        // Obtener el préstamo del controlador 1
         this.prestamo = controlador1.getPrestamo();
 
-        // Habilitar el botón de guardar y deshabilitar el botón siguiente
         bot_guardar.setDisable(false);
         bot_siguiente.setDisable(true);
-
-        // Mostrar el panel de detalles del préstamo 2
+        bot_atras.setDisable(false);
         mostrarPanel(stack, datosprestamo2);
 
-        // Imprimir el objeto préstamo para depuración
-        System.out.println(prestamo.toString());
     }
 
     private void mostrarPanel(StackPane stackPane, AnchorPane PanelAMostrar) {

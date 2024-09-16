@@ -1,8 +1,14 @@
 package com.tecno.biblioteca.controller;
 
 import com.jfoenix.controls.JFXSnackbar;
+import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
+import com.jfoenix.controls.JFXSnackbarLayout;
+import com.tecno.biblioteca.enums.TipoCuenta;
+import com.tecno.biblioteca.model.Cuenta;
+import com.tecno.biblioteca.service.LibraryService;
 
 import java.io.IOException;
+import java.net.URL;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -21,6 +28,8 @@ public class LoginController {
 
     private double xOffset = 0;
     private double yOffset = 0;
+
+    LibraryService ls = new LibraryService();
 
     @FXML
     private Button Bot_Entrar;
@@ -41,8 +50,41 @@ public class LoginController {
     private JFXSnackbar snacknotificacion;
 
     @FXML
+    private AnchorPane panel1;
+
+    @FXML
     void ActionEntrar(ActionEvent event) throws IOException {
-        Escena(event);
+        String css1 = getClass().getResource("/CSS/bar.css").toExternalForm();
+        snacknotificacion = new JFXSnackbar(panel1);
+        snacknotificacion.setPrefWidth(322);
+        snacknotificacion.getStylesheets().add(css1);
+        
+        String texto1 = ContraField.getText().trim();
+        String texto2 = IdentificacionField.getText().trim();
+        
+        if (!(texto1.isEmpty()) || !(texto2.isEmpty())) {
+            Long id = Long.valueOf(texto2);
+            
+            if (autenticacion(texto1, id)) {
+                Escena(event);
+            } else {
+
+                snacknotificacion.fireEvent(new SnackbarEvent(new JFXSnackbarLayout("Id o contraseña erroneos o inexistente")));
+
+            }
+        } else {
+            snacknotificacion.fireEvent(new SnackbarEvent(new JFXSnackbarLayout("Campo vacios, ingrese los datos")));
+
+        }
+
+    }
+
+    public boolean autenticacion(String contraseña, Long id) {
+        Cuenta cuenta = ls.Encontrar_Cuenta(id);
+        if (cuenta != null && cuenta.getContraseña().equals(contraseña) && !(cuenta.getTipo_cuenta().equals(TipoCuenta.USUARIO))) {
+            return true;
+        }
+        return false;
     }
 
     @FXML
