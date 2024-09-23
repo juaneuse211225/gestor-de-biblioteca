@@ -12,7 +12,7 @@ public class Prestamo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_prestamo;
 
-    @OneToMany(mappedBy = "id_prestamo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "id_prestamo", cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
     private List<DetallePrestamo> id_detalleprestamo;
 
     @OneToOne(cascade = CascadeType.MERGE)

@@ -1,0 +1,20 @@
+
+.cerrar-button{
+	-fx-background-color: transparent;
+	-fx-border-color: transparent;
+	-fx-text-fill:  #14919B;
+	-fx-font-size: 17px;
+	-fx-padding: 10px 20px;
+}
+
+.cerrar-button:hover{
+	-fx-background-color:  #ff2323;
+	-fx-text-fill:  #FFFFFF;
+
+}
+
+.cerrar-button:pressed{
+	-fx-background-color: #ff2323;
+	-fx-text-fill:  #FFFFFF;
+}
+

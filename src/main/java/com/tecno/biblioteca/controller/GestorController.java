@@ -71,7 +71,7 @@ public class GestorController {
 
     @FXML
     private TitledPane usuarios;
-    BorderPane panelLibro, panelUsuario, panelcrearPrestamo;
+    BorderPane panelLibro, panelUsuario, panelcrearPrestamo, panelcrearDevolucion;
 
     @FXML
     public void initialize() {
@@ -79,7 +79,8 @@ public class GestorController {
             panelUsuario = FXMLLoader.load(getClass().getResource("/fxml/vistas/PanelUsuario.fxml"));
             panelLibro = FXMLLoader.load(getClass().getResource("/fxml/vistas/PanelLibros.fxml"));
             panelcrearPrestamo = FXMLLoader.load(getClass().getResource("/fxml/vistas/crearPrestamo.fxml"));
-            Panel_Stack.getChildren().addAll(panelUsuario, panelLibro, panelcrearPrestamo);
+            panelcrearDevolucion = FXMLLoader.load(getClass().getResource("/fxml/vistas/panelDevolucion.fxml"));
+            Panel_Stack.getChildren().addAll(panelUsuario, panelLibro, panelcrearPrestamo,  panelcrearDevolucion);
 
             mostrarPanel(Panel_Stack, panelUsuario);
 
@@ -136,7 +137,7 @@ public class GestorController {
         for (var child : stackPane.getChildren()) {
             if (child instanceof BorderPane) {
                 child.setVisible(child == PanelAMostrar);
-                child.setManaged(child == PanelAMostrar); // Esto asegura que el espacio se ajuste correctamente
+                child.setManaged(child == PanelAMostrar); 
             }
         }
     }
@@ -153,7 +154,7 @@ public class GestorController {
 
     @FXML
     void CrearDevolucionAction(ActionEvent event) {
-
+       mostrarPanel(Panel_Stack, panelcrearDevolucion);
     }
 
     @FXML

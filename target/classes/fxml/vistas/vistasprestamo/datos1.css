@@ -1,0 +1,183 @@
+.list-view{
+	-fx-background-color: transparent;
+	-fx-border-width: 0;
+}
+
+.list-view .list-cell {
+    -fx-background-color: white;     
+    -fx-text-fill: #0b6477;            
+    -fx-border-width: 0;     
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: #0b6477;
+    -fx-text-fill: #45dfb1;
+}
+
+.list-view .list-cell:filled:selected {
+    -fx-background-color: #0b6477;
+    -fx-text-fill: #45dfb1;         
+}
+
+/* Fondo del área de desplazamiento del ListView */
+.list-view .scroll-pane {
+    -fx-background-color: white;  /* Fondo del área donde se desplazan los elementos */
+}
+
+/* Estilo de la barra de desplazamiento vertical */
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #0b6477; /* Color de la barra de desplazamiento vertical */
+}
+
+/* Fondo detrás de la barra de desplazamiento vertical */
+.list-view .scroll-bar:vertical {
+    -fx-background-color: white;   /* Fondo de la pista de la barra de desplazamiento vertical */
+}
+
+/* Estilo para los botones de la barra de desplazamiento vertical */
+.list-view .scroll-bar:vertical .increment-button,
+.list-view .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent; /* Color de los botones de la barra vertical */
+    
+}
+
+/* Estilo para las flechas de los botones de la barra de desplazamiento vertical */
+.list-view .scroll-bar:vertical .increment-arrow,
+.list-view .scroll-bar:vertical .decrement-arrow {
+    -fx-background-color: #0b6477;   /* Color de las flechas en la barra vertical */
+}
+
+ /*Date Picker*/
+ .date-picker {
+    
+    -fx-border-width: 0;  /* Bordes a los lados y abajo */
+    -fx-background-color: white;      /* Fondo de la caja principal */
+             /* Bordes del calendario */
+    -fx-border-width: 2px; 
+}
+
+.date-picker .text-field {
+    -fx-background-color: white;
+    -fx-text-fill: #45dfb1;            /* Color del texto de la fecha */
+}
+.date-picker .label {
+    -fx-font-weight: bold;              /* Negrita para el mes y año */
+    -fx-text-fill: #0b6477;            /* Color del texto del mes y año */
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: #0b6477;  /* Fondo solo para el botón del DatePicker */
+     
+    -fx-border-width: 1px; 
+}
+.arrow {
+    -fx-background-color: white; /* Elimina cualquier fondo adicional */
+    -fx-fill: white;                   /* Cambia el color del ícono del calendario a blanco */
+}
+
+
+.date-picker .popup {
+    -fx-background-color: white;        /* Fondo del calendario desplegable */
+    -fx-border-color: #0b6477;         /* Bordes del calendario */
+    -fx-border-width: 1px;              /* Grosor del borde */
+}
+
+.date-picker .cell {
+    -fx-background-color: white;        /* Fondo de cada celda de día */
+    -fx-text-fill: #0b6477;               /* Color del texto de los días */
+}
+
+.date-picker .cell:hover {
+    -fx-background-color: #0b6477;
+    -fx-text-fill: #45dfb1;
+}
+
+.date-picker .cell:filled:selected {
+    -fx-background-color: #0b6477;
+    -fx-text-fill: #45dfb1;     
+}
+
+/* Estilo para el TextField */
+#texto{
+    -fx-background-color: white;    /* Fondo blanco */
+    -fx-text-fill: #0b6477;         /* Color del texto */
+    -fx-border-color:  #0b6477; /* Borde solo abajo */
+    -fx-border-width: 0 0 2px 0;    /* Grosor del borde solo abajo */
+    -fx-padding: 5px;               /* Espaciado interno para que el texto no quede pegado al borde */
+}
+
+/* Estilo cuando el TextField está enfocado */
+#texto:focused {
+    -fx-border-color: #0b6477 ; /* Mantiene el borde solo abajo */
+    -fx-background-color: white;   /* Fondo blanco mientras se edita */
+    -fx-text-fill: #0b6477;        /* Color del texto mientras se edita */
+}
+
+/* Estilo para el TextArea */
+.text-area {
+    -fx-text-fill: #0b6477;          /* Color del texto */
+    -fx-background-color: transparent;     /* Fondo blanco */
+    -fx-border-color: white;       /* Color del borde */
+    -fx-border-radius: 5px;         /* Bordes redondeados */
+    
+    -fx-padding: 1px;               /* Espaciado interno */
+}
+
+/* Estilo cuando el TextArea está enfocado */
+.text-area:focused {
+   
+    -fx-background-color: white;     /* Mantiene el fondo blanco */
+    -fx-text-fill: #0b6477;          /* Mantiene el color del texto */
+}
+
+.flat-button{
+	-fx-background-color: #14919B;
+	-fx-border-color: transparent;
+	-fx-text-fill:  #0ad1c8;
+	-fx-font-size: 17px;
+	-fx-padding: 10px 20px;
+}
+
+.flat-button:hover{
+	-fx-background-color:  #0ad1c8;
+	-fx-text-fill:  #14919b;
+
+}
+
+.flat-button:pressed{
+	-fx-background-color:  #0ad1c8;
+	-fx-text-fill:  #14919b;
+}
+
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #14919B;
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;
+    -fx-padding: 0 0 0 0;
+}
+
+.combo-box .text {
+    -fx-fill: #14919B;
+}
+
+
+.combo-box .combo-box-popup {
+    -fx-background-color: white;
+    -fx-border-color: #14919B;
+    -fx-border-radius: 5px;
+    
+}
+
+
+
+
+.combo-box .arrow-button {
+    -fx-background-color: #14919B;
+}
+
+
+.combo-box .editable-text-field {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}

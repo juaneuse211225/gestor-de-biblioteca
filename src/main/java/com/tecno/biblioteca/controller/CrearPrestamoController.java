@@ -13,7 +13,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
 public class CrearPrestamoController {
@@ -30,7 +29,7 @@ public class CrearPrestamoController {
 
     @FXML
     private Button bot_siguiente;
-    
+
     @FXML
     private Button bot_atras;
 
@@ -61,9 +60,9 @@ public class CrearPrestamoController {
 
     @FXML
     void CancelAction(ActionEvent event) {
-        
+
     }
-    
+
     @FXML
     void RegresarAction(ActionEvent event) {
         this.prestamo = controlador1.getPrestamo();
@@ -71,7 +70,7 @@ public class CrearPrestamoController {
         bot_guardar.setDisable(true);
         bot_siguiente.setDisable(false);
         bot_atras.setDisable(true);
-        
+
         mostrarPanel(stack, datosprestamo1);
     }
 
@@ -121,9 +120,8 @@ public class CrearPrestamoController {
         for (var child : stackPane.getChildren()) {
             if (child instanceof AnchorPane) {
                 child.setVisible(child == PanelAMostrar);
-                child.setManaged(child == PanelAMostrar); // Esto asegura que el espacio se ajuste correctamente
+                child.setManaged(child == PanelAMostrar);
             }
         }
     }
-
 }

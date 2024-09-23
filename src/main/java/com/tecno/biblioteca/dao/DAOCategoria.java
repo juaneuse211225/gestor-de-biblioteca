@@ -6,6 +6,7 @@ import com.tecno.biblioteca.model.Categoria;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 
 public class DAOCategoria {
@@ -67,9 +68,13 @@ public class DAOCategoria {
     }
 
     public Categoria EncontrarPorNombre(String categoria) {
+        try{
         TypedQuery<Categoria> query = em.createQuery("SELECT c FROM Categoria c WHERE c.categoria = :categoria", Categoria.class);
         query.setParameter("categoria", categoria);
         return query.getSingleResult();
+        }catch(NoResultException e){
+            return null;
+        }
     }
 
     public List<Categoria> EncontrarTodasEntitidades() {

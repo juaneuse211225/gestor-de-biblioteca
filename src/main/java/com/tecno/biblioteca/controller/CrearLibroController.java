@@ -119,7 +119,9 @@ public class CrearLibroController {
 
                 // Comprobar si la categoría existe
                 if (ls.Encontrar_Categoria_Nombre(valor) == null) {
-                    ls.Crear_Libro(new Libro(id, a1, a2, new Categoria(valor), ejemplares, ubi));
+                    Categoria categoria = new Categoria(valor);
+                    ls.Crear_Categoria(categoria);
+                    ls.Crear_Libro(new Libro(id, a1, a2,categoria, ejemplares, ubi));
                 } else {
                     mostrarAlerta("Error", "La categoría ya existe.");
                 }
@@ -140,6 +142,7 @@ public class CrearLibroController {
             mostrarAlerta("Error", "Los campos de ISBN y ejemplares deben ser numéricos.");
         }
         CargarCategorias();
+        Limpiar();
     }
 
     public void Limpiar() {

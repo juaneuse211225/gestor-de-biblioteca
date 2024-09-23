@@ -97,5 +97,23 @@ public class LibraryService {
     public void Crear_Prestamo(Prestamo prestamo){
         d_prestamo.Crear(prestamo);
     }
+    
+    public Prestamo Encontrar_prestamo(Prestamo prestamo){
+        
+        return d_prestamo.findEntityById(prestamo.getId_prestamo());
+    }
+    
+    public Prestamo Encontrar_prestamo_por_Usuario(long id){
+        
+        return d_prestamo.EncontrarPrestamoActivoOMoraPorUsuario(d_cuenta.BuscarEntidad(id));
+    }
+    
+    public void Crear_Devolucion(Devolucion devolucion){
+        d_devolucion.create(devolucion);
+    }
+    
+    public boolean exite_cuenta(long id){
+       return d_cuenta.ExisteID(id);
+    }
 }
 

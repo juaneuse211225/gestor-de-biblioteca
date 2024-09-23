@@ -74,8 +74,6 @@ public class DatosPrestamo2Controller {
     @FXML
     public void initialize() {
         FiltroLibros = new FilteredList<Libro>(libros, libs -> true);
-
-        FiltroLibros = new FilteredList<Libro>(libros, libs -> true);
         txt_buscar.textProperty().addListener((observable, viejo, nuevo) -> aplicarFiltro(nuevo));
         combo_filtro.valueProperty().addListener((observable, viejo, nuevo) -> aplicarFiltro(txt_buscar.getText()));
 
