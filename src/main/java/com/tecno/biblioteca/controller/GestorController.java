@@ -1,5 +1,6 @@
 package com.tecno.biblioteca.controller;
 
+import com.tecno.biblioteca.enums.TipoCuenta;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -76,10 +77,10 @@ public class GestorController {
     @FXML
     public void initialize() {
         try {
-            panelUsuario = FXMLLoader.load(getClass().getResource("/fxml/vistas/PanelUsuario.fxml"));
-            panelLibro = FXMLLoader.load(getClass().getResource("/fxml/vistas/PanelLibros.fxml"));
-            panelcrearPrestamo = FXMLLoader.load(getClass().getResource("/fxml/vistas/crearPrestamo.fxml"));
-            panelcrearDevolucion = FXMLLoader.load(getClass().getResource("/fxml/vistas/panelDevolucion.fxml"));
+            panelUsuario = FXMLLoader.load(getClass().getResource("/fxml/PanelUsuario.fxml"));
+            panelLibro = FXMLLoader.load(getClass().getResource("/fxml/PanelLibros.fxml"));
+            panelcrearPrestamo = FXMLLoader.load(getClass().getResource("/fxml/crearprestamovistafinal.fxml"));
+            panelcrearDevolucion = FXMLLoader.load(getClass().getResource("/fxml/panelDevolucion.fxml"));
             Panel_Stack.getChildren().addAll(panelUsuario, panelLibro, panelcrearPrestamo,  panelcrearDevolucion);
 
             mostrarPanel(Panel_Stack, panelUsuario);
@@ -165,6 +166,20 @@ public class GestorController {
     @FXML
     void PanelPrestamoAction(ActionEvent event) {
 
+    }
+
+    void inicializar(TipoCuenta tipoCuenta) {
+    
+    if (tipoCuenta == TipoCuenta.BIBLIOTECARIO) {
+            // Ocultar botones o funcionalidades exclusivas para administradores
+            libros.setVisible(false);
+            informes.setVisible(false);
+        } else if (tipoCuenta == TipoCuenta.ADMINISTRADOR) {
+            // Mostrar botones o funcionalidades para administradores
+            libros.setVisible(true);
+            informes.setVisible(true);
+        }
+    
     }
 
 }

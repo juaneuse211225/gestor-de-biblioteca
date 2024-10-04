@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="494.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tecno.biblioteca.controller.CrearLibroController">
+   <center>
+      <AnchorPane prefHeight="505.0" prefWidth="673.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="text_isbn" layoutX="14.0" layoutY="34.0" prefHeight="30.0" prefWidth="200.0" promptText="Ingresa el ISBN" styleClass="field" stylesheets="@../CSS/DatosLibro.css" />
+            <TextField fx:id="text_autor" layoutX="14.0" layoutY="172.0" prefHeight="30.0" prefWidth="464.0" promptText="Autor(a) del libro" styleClass="field" stylesheets="@../CSS/DatosLibro.css" />
+            <TextField fx:id="text_titulo" layoutX="14.0" layoutY="100.0" prefHeight="30.0" prefWidth="464.0" promptText="Titulo del libro" styleClass="field" stylesheets="@../CSS/DatosLibro.css" />
+            <TextArea fx:id="text_ubicacion" layoutX="10.0" layoutY="325.0" prefHeight="77.0" prefWidth="473.0" promptText="Ingresa la ubicacion de donde se encuentra el libro" stylesheets="@../CSS/DatosLibro.css" wrapText="true" AnchorPane.bottomAnchor="100.0" />
+            <Label layoutX="14.0" layoutY="14.0" stylesheets="@../CSS/DatosLibro.css" text="ISBN:" />
+            <Label layoutX="14.0" layoutY="78.0" stylesheets="@../CSS/DatosLibro.css" text="Titulo:" />
+            <Label layoutX="14.0" layoutY="148.0" stylesheets="@../CSS/DatosLibro.css" text="Autor:" />
+            <RadioButton fx:id="radio_cat" layoutX="14.0" layoutY="233.0" mnemonicParsing="false" onAction="#CategoriaAction" prefHeight="76.0" prefWidth="217.0" selected="true" AnchorPane.topAnchor="233.0">
+               <graphic>
+                  <Pane fx:id="CategoriaExistente" prefHeight="76.0" prefWidth="226.0">
+                     <children>
+                        <ComboBox fx:id="Categorias" layoutX="13.0" layoutY="36.0" prefHeight="30.0" prefWidth="172.0" promptText="Categoria" styleClass="combo-box" stylesheets="@../CSS/DatosLibro.css" />
+                        <Label layoutX="13.0" layoutY="10.0" stylesheets="@../CSS/DatosLibro.css" text="Categoria:" />
+                     </children>
+                  </Pane>
+               </graphic>
+               <toggleGroup>
+                  <ToggleGroup fx:id="group1" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="radio_new" layoutX="260.0" layoutY="239.0" mnemonicParsing="false" onAction="#NuevaCategoriaAction" toggleGroup="$group1">
+               <graphic>
+                  <Pane fx:id="NuevaCategoria" disable="true" prefHeight="65.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="text_nuevacategoria" layoutX="15.0" layoutY="30.0" prefHeight="30.0" prefWidth="176.0" promptText="Nueva categoria" styleClass="field" stylesheets="@../CSS/DatosLibro.css" />
+                        <Label layoutX="14.0" layoutY="6.0" stylesheets="@../CSS/DatosLibro.css" text="Nueva categoria:" />
+                     </children>
+                  </Pane>
+               </graphic>
+            </RadioButton>
+            <Label layoutX="234.0" layoutY="14.0" stylesheets="@../CSS/DatosLibro.css" text="Cantidad de ejemplares:" />
+            <Label layoutX="10.0" layoutY="309.0" stylesheets="@DatosLibro.css" text="Ubicacion:" />
+            <Button fx:id="bot_añadir" defaultButton="true" layoutX="13.0" layoutY="445.0" mnemonicParsing="false" onAction="#AñadirAction" styleClass="flat-button-submit" stylesheets="@../CSS/DatosLibro.css" text="AÑADIR" />
+            <Button fx:id="bot_cancelar" cancelButton="true" layoutX="114.0" layoutY="445.0" mnemonicParsing="false" onAction="#AncelarAction" styleClass="flat-button-cancel" stylesheets="@../CSS/DatosLibro.css" text="CANCELAR" />
+            <TextField fx:id="text_ejemplares_total" layoutX="234.0" layoutY="34.0" prefHeight="30.0" prefWidth="244.0" promptText="Cantidad de ejemplares" styleClass="field" stylesheets="@../CSS/DatosLibro.css" />
+         </children>
+      </AnchorPane>
+   </center>
+   <top>
+      <Pane prefHeight="100.0" prefWidth="200.0" styleClass="pane" stylesheets="@../CSS/DatosLibro.css" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="titulo" layoutX="14.0" layoutY="30.0" prefHeight="40.0" prefWidth="300.0" styleClass="label-pane" stylesheets="@../CSS/DatosLibro.css" text="Registrar Libro">
+               <font>
+                  <Font size="28.0" />
+               </font></Label>
+         </children>
+      </Pane>
+   </top>
+</BorderPane>

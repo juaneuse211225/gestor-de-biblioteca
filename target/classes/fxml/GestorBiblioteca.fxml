@@ -59,23 +59,6 @@
                            </image></ImageView>
                      </graphic>
                   </TitledPane>
-                <TitledPane fx:id="libros" prefHeight="149.0" prefWidth="270.0" stylesheets="@../CSS/Dashboard.css" text="Libros" textFill="WHITE">
-                     <content>
-                        <VBox prefHeight="129.0" prefWidth="268.0" styleClass="vbox-pane" stylesheets="@../CSS/Dashboard.css">
-                           <children>
-                              <Button fx:id="bot_panelLibros" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#PanelLibrosAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/Dashboard.css" text="Panel de Libros">
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor></Button>
-                           </children></VBox>
-                     </content>
-                     <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/libros.png" />
-                           </image></ImageView>
-                     </graphic>
-                </TitledPane>
                 <TitledPane fx:id="prestamos" prefHeight="68.0" prefWidth="204.0" stylesheets="@../CSS/Dashboard.css" text="Prestamos" textFill="WHITE">
                      <content>
                         <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/Dashboard.css">
@@ -118,17 +101,6 @@
                            </image></ImageView>
                      </graphic>
                 </TitledPane>
-                  <TitledPane fx:id="informes" prefHeight="95.0" prefWidth="204.0" stylesheets="@../CSS/Dashboard.css" text="Informes" textFill="WHITE">
-                     <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/Dashboard.css" />
-                     </content>
-                     <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/info.png" />
-                           </image></ImageView>
-                     </graphic>
-                  </TitledPane>
                   <TitledPane fx:id="perfil" layoutX="10.0" layoutY="210.0" prefHeight="95.0" prefWidth="204.0" stylesheets="@../CSS/Dashboard.css" text="Perfil" textFill="WHITE">
                      <content>
                         <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/Dashboard.css">
@@ -147,13 +119,41 @@
                            </image></ImageView>
                      </graphic>
                   </TitledPane>
+                <TitledPane fx:id="libros" prefHeight="149.0" prefWidth="270.0" stylesheets="@../CSS/Dashboard.css" text="Libros" textFill="WHITE" visible="false">
+                     <content>
+                        <VBox prefHeight="129.0" prefWidth="268.0" styleClass="vbox-pane" stylesheets="@../CSS/Dashboard.css">
+                           <children>
+                              <Button fx:id="bot_panelLibros" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#PanelLibrosAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/Dashboard.css" text="Panel de Libros">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                           </children></VBox>
+                     </content>
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/libros.png" />
+                           </image></ImageView>
+                     </graphic>
+                </TitledPane>
+                  <TitledPane fx:id="informes" prefHeight="95.0" prefWidth="204.0" stylesheets="@../CSS/Dashboard.css" text="Informes" textFill="WHITE" visible="false">
+                     <content>
+                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/Dashboard.css" />
+                     </content>
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/info.png" />
+                           </image></ImageView>
+                     </graphic>
+                  </TitledPane>
               </panes>
             </Accordion>
             <Button fx:id="bot_cerrarSecion" alignment="BOTTOM_LEFT" layoutY="491.0" mnemonicParsing="false" onAction="#CerrarSesionAction" prefHeight="50.0" prefWidth="270.0" styleClass="flat-button" stylesheets="@../CSS/Dashboard.css" text="Cerrar Sesion" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="541.0">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../cerrarsesion.png" />
+                        <Image url="@../img/cerrarsesion.png" />
                      </image></ImageView>
                </graphic>
                <cursor>

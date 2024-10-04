@@ -15,8 +15,8 @@ public class Prestamo {
     @OneToMany(mappedBy = "id_prestamo", cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true)
     private List<DetallePrestamo> id_detalleprestamo;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id_cuenta", unique = true, referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "id_cuenta", nullable = false, referencedColumnName = "id")
     private Cuenta id_cuenta;
 
     @Basic

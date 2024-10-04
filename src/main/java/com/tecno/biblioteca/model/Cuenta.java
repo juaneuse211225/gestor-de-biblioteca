@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import com.tecno.biblioteca.enums.EstadoCuenta;
 import com.tecno.biblioteca.enums.TipoCuenta;
+import java.util.List;
 
 @Entity
 @Table(name = "Cuenta")
@@ -29,8 +30,8 @@ public class Cuenta {
     @Column(nullable = false)
     private String telefono;
 
-    @OneToOne(mappedBy = "id_cuenta", optional = true)
-    private Prestamo id_prestamo;
+    @OneToMany(mappedBy = "id_cuenta", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Prestamo> id_prestamo;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_cuenta", nullable = false)
@@ -103,13 +104,15 @@ public class Cuenta {
         this.telefono = telefono;
     }
 
-    public Prestamo getId_prestamo() {
+    public List<Prestamo> getId_prestamo() {
         return id_prestamo;
     }
 
-    public void setId_prestamo(Prestamo id_prestamo) {
+    public void setId_prestamo(List<Prestamo> id_prestamo) {
         this.id_prestamo = id_prestamo;
     }
+
+    
 
     public TipoCuenta getTipo_cuenta() {
         return tipo_cuenta;

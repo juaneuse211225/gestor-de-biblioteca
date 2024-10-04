@@ -3,9 +3,11 @@ package com.tecno.biblioteca.dao;
 import java.util.List;
 
 import com.tecno.biblioteca.model.DetallePrestamo;
+import com.tecno.biblioteca.model.Prestamo;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 
 public class DAODetallePrestamo {
 
@@ -74,5 +76,12 @@ public class DAODetallePrestamo {
             }
             throw new RuntimeException("Error al eliminar La transaccion", e);
         }
+    }
+
+    public List<DetallePrestamo> EncontrarPorNombre(Prestamo prestamo) {
+
+        TypedQuery<DetallePrestamo> query = em.createQuery("SELECT dp FROM DetallePrestamo dp WHERE dp.id_prestamo = :id_prestamo", DetallePrestamo.class);
+        query.setParameter("id_prestamo", prestamo);
+        return query.getResultList();
     }
 }

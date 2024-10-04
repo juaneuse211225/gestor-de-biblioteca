@@ -3,24 +3,33 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
-	<persistence-unit name="persistencia-biblioteca" transaction-type="RESOURCE_LOCAL">
-		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<class>com.tecno.biblioteca.model.Prestamo</class>
-		<class>com.tecno.biblioteca.model.DetallePrestamo</class>
-		<class>com.tecno.biblioteca.model.Libro</class>	
-		<class>com.tecno.biblioteca.model.Cuenta</class>
-		<class>com.tecno.biblioteca.model.Devolucion</class>
-		<class>com.tecno.biblioteca.model.DetalleDevolucion</class>
-		<class>com.tecno.biblioteca.model.Categoria</class>
-		<properties>
-			<property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
-			<property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/Biblioteca" />
-			<property name="jakarta.persistence.jdbc.user" value="root" />
-			<property name="jakarta.persistence.jdbc.password" value="juan2005" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
-			<property name="hibernate.show_sql" value="true" />
-		</properties>
-	</persistence-unit>
+    <persistence-unit name="persistencia-biblioteca" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>com.tecno.biblioteca.model.Prestamo</class>
+        <class>com.tecno.biblioteca.model.DetallePrestamo</class>
+        <class>com.tecno.biblioteca.model.Libro</class>	
+        <class>com.tecno.biblioteca.model.Cuenta</class>
+        <class>com.tecno.biblioteca.model.Devolucion</class>
+        <class>com.tecno.biblioteca.model.DetalleDevolucion</class>
+        <class>com.tecno.biblioteca.model.Categoria</class>
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/Biblioteca" />
+            <property name="jakarta.persistence.jdbc.user" value="root" />
+            <property name="jakarta.persistence.jdbc.password" value="juan2005" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.show_sql" value="true" />
+
+            <!-- Configuración de C3P0 -->
+            <property name="hibernate.c3p0.min_size" value="5"/> 
+            <property name="hibernate.c3p0.max_size" value="20"/> 
+            <property name="hibernate.c3p0.timeout" value="300"/> 
+            <property name="hibernate.c3p0.max_statements" value="50"/> 
+            <property name="hibernate.c3p0.idle_test_period" value="300"/> 
+        </properties>
+
+    </persistence-unit>
 </persistence>
+
 

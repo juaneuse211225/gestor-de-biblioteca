@@ -147,7 +147,7 @@ public class PanelUsuarioController {
     public void VentanaModal() {
         try {
             gestorStage = (Stage) bot_guardar.getScene().getWindow();
-            loader = new FXMLLoader(getClass().getResource("/fxml/ventanasmodales/datos.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/fxml/datos.fxml"));
             Parent root = loader.load();
             DatosController controller = loader.getController();
             Stage modalStage = new Stage();
@@ -171,7 +171,7 @@ public class PanelUsuarioController {
     public void VentanaModal(Cuenta cuenta) {
         try {
             gestorStage = (Stage) bot_guardar.getScene().getWindow();
-            loader = new FXMLLoader(getClass().getResource("/fxml/ventanasmodales/datos.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/fxml/datos.fxml"));
             Parent root = loader.load();
             DatosController controller = loader.getController();
             Stage modalStage = new Stage();

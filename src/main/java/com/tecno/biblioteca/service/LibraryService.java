@@ -115,5 +115,13 @@ public class LibraryService {
     public boolean exite_cuenta(long id){
        return d_cuenta.ExisteID(id);
     }
+
+    public void Actualizar_Prestamo(Prestamo prestamo) {
+        d_prestamo.Actualizar(prestamo);
+    }
+    
+    public Libro Encontrar_Libro(Long id){
+        return d_libro.findEntityById(id);
+    }
 }
 

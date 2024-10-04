@@ -168,7 +168,7 @@ public class PanelLibrosController {
     public void VentanaModal() {
         try {
             modalstage = (Stage) bot_añadir.getScene().getWindow();
-            loader = new FXMLLoader(getClass().getResource("/fxml/ventanasmodales/crearlibro.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/fxml/crearlibro.fxml"));
             Parent root = loader.load();
             CrearLibroController controller = loader.getController();
             Stage modalStage = new Stage();
@@ -193,7 +193,7 @@ public class PanelLibrosController {
     public void VentanaModal(Libro libro) {
         try {
             modalstage = (Stage) bot_añadir.getScene().getWindow();
-            loader = new FXMLLoader(getClass().getResource("/fxml/ventanasmodales/crearlibro.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/fxml/crearlibro.fxml"));
             Parent root = loader.load();
             CrearLibroController controller = loader.getController();
             Stage modalStage = new Stage();
