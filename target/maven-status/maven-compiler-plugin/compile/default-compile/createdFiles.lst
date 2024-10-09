@@ -12,6 +12,7 @@ com/tecno/biblioteca/model/Libro.class
 com/tecno/biblioteca/App.class
 com/tecno/biblioteca/dao/DAODetallePrestamo.class
 com/tecno/biblioteca/controller/CrearPrestamofinalController$1.class
+com/tecno/biblioteca/controller/CrearDevolucionController$2.class
 com/tecno/biblioteca/model/Cuenta.class
 com/tecno/biblioteca/dao/DAOPrestamo.class
 com/tecno/biblioteca/dao/DAODevolucion.class
@@ -26,6 +27,7 @@ com/tecno/biblioteca/enums/TipoCuenta.class
 com/tecno/biblioteca/util/AESutil.class
 com/tecno/biblioteca/model/Categoria.class
 com/tecno/biblioteca/controller/LoginController.class
+com/tecno/biblioteca/controller/CrearDevolucionController$3.class
 com/tecno/biblioteca/model/Prestamo.class
 com/tecno/biblioteca/model/Devolucion.class
 com/tecno/biblioteca/controller/CrearDevolucionController.class

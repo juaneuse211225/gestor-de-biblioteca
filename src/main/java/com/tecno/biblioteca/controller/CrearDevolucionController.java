@@ -9,16 +9,23 @@ import com.tecno.biblioteca.model.Libro;
 import com.tecno.biblioteca.model.Prestamo;
 import com.tecno.biblioteca.service.LibraryService;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableCell;
@@ -27,6 +34,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 
 public class CrearDevolucionController {
 
@@ -71,7 +80,7 @@ public class CrearDevolucionController {
 
     @FXML
     public void initialize() {
-        FXCollections.observableArrayList();
+
         Column_cantidadPrestada.setCellValueFactory(new PropertyValueFactory<>("ejemplares_prestados"));
         Column_isbn.setCellValueFactory(isbn
                 -> new SimpleObjectProperty<>(isbn.getValue().getId_libro().getIsbn()
@@ -79,96 +88,137 @@ public class CrearDevolucionController {
         Column_titulo.setCellValueFactory(tit
                 -> new SimpleObjectProperty<>(tit.getValue().getId_libro().getTitulo()
                 ));
-        AgregarSpinner();
     }
 
     @FXML
     void BuscarAction(ActionEvent event) {
-
-        // Verificar que el texto no esté vacío
-        String inputText = text_busqueda.getText().trim();
-        if (inputText.isEmpty()) {
-            System.err.println("El campo de búsqueda está vacío. Ingresa un ID de usuario.");
+        if (text_busqueda.getText().trim().isBlank()) {
+            System.out.println("por favor ingresar el numero de identificacion del usuario");
             return;
         }
 
-        long id = Long.parseLong(inputText); // Convertir a long
+        String id = text_busqueda.getText().trim();
 
-        // Verificar si el usuario existe
-        Cuenta cuenta = ls.Encontrar_Cuenta(id);
+        Cuenta cuenta = ls.Encontrar_Cuenta(Long.parseLong(id));
         if (cuenta == null) {
-
-            System.err.println("El usuario no existe");
+            System.out.println("Usuario no encontrado o inexistente");
             return;
-        } else {
-            CargarTabla(id);
-            tablaDetalleDevolcion.setDisable(false);
-            Descripcion.setDisable(false);
-            fecha_final.setDisable(false);
         }
+        prestamo = mostrarDialogo(cuenta);
+        CargarTabla(prestamo);
+    }
 
+    public void CargarTabla(Prestamo prestamo) {
+        List<DetallePrestamo> detallesprestamo = prestamo.getId_detalleprestamo();
+        if (prestamo.getEstado_prestamo() == EstadoPrestamo.INCONCLUSO) {
+
+            for (DetallePrestamo detalleprestamo : detallesprestamo) {
+    
+                tablaDetalleDevolcion.getItems().add(detalleprestamo);
+
+            }
+
+            AAgregarSpinner(prestamo);
+
+        } else {
+            for (DetallePrestamo detalleprestamo : detallesprestamo) {
+                tablaDetalleDevolcion.getItems().add(detalleprestamo);
+            }
+
+            AgregarSpinner();
+        }
     }
 
     @FXML
     void CancelarAction(ActionEvent event) {
-
+        limpiar();
     }
 
-    @FXML
-    void GuardarAction(ActionEvent event) {
-        Devolucion devolucion = new Devolucion(fecha_final.getValue(), Descripcion.getText().trim(), prestamo);
-        List<DetalleDevolucion> devoluciones = obtenerDetallesDevolucion(devolucion);
-
-        for (DetalleDevolucion detalle : devoluciones) {
-            Libro libro = detalle.getId_libro();
-            libro.setLibros_disponibles(libro.getLibros_disponibles() + detalle.getEjemplares_devueltos());
-            ls.Actualizar_Libro(libro);
-        }
-
-        devolucion.setDetalle_devolucion(devoluciones);
-        ls.Crear_Devolucion(devolucion);
-
-        prestamo.setId_devolucion(devolucion);
-
-        ls.Actualizar_Prestamo(prestamo);
-
-        // Desasociar el préstamo de la cuenta del usuario
-        Cuenta cuenta = prestamo.getId_cuenta();
-        ls.Actualizar_Cuenta(cuenta); // Actualizar la cuenta en la base de datos
-
-        System.out.println("Devolución creada, préstamo actualizado y desasociado de la cuenta.");
+    public void limpiar() {
+        text_busqueda.setText("");
+        Descripcion.setText("");
+        fecha_final.setValue(null);
+        prestamo.equals(new Prestamo());
+        tablaDetalleDevolcion.getItems().clear();
     }
 
-    public List<DetalleDevolucion> obtenerDetallesDevolucion(Devolucion devolucion) {
-        List<DetalleDevolucion> detalles = new ArrayList<>();
-        boolean devolucionCompleta = true;
+    private Prestamo mostrarDialogo(Cuenta cuenta) {
 
-        for (DetallePrestamo detallePrestamo : tablaDetalleDevolcion.getItems()) {
-            DetalleDevolucion detalleDevolucion = new DetalleDevolucion();
+    Dialog<Prestamo> dialog = new Dialog<>();
+    dialog.setTitle("Elegir préstamo");
+    dialog.initModality(Modality.APPLICATION_MODAL);
 
-            // Obtener la cantidad devuelta desde el Spinner (que actualiza DetallePrestamo)
-            int cantidadDevuelta = detallePrestamo.getEjemplares_prestados(); // Aquí se debe reflejar lo que el usuario seleccionó en el spinner
+    ButtonType seleccionarButtonType = new ButtonType("Seleccionar", ButtonBar.ButtonData.OK_DONE);
+    ButtonType cancelarButtonType = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+    dialog.getDialogPane().getButtonTypes().addAll(seleccionarButtonType, cancelarButtonType);
 
-            detalleDevolucion.setEjemplares_devueltos(cantidadDevuelta);
-            detalleDevolucion.setId_libro(detallePrestamo.getId_libro());
-            detalleDevolucion.setId_devolucion(devolucion);
+    ListView<Prestamo> listView = new ListView<>();
+    listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+    dialog.setWidth(400); // Ancho del diálogo
+    dialog.setHeight(300);
+    // Filtrar los préstamos basados en su estado
+    if (cuenta.getId_prestamo() != null) {
+        List<Prestamo> prestamosFiltrados = cuenta.getId_prestamo().stream()
+                .filter(prestamo -> prestamo.getEstado_prestamo() == EstadoPrestamo.EN_MORA
+                        || prestamo.getEstado_prestamo() == EstadoPrestamo.ACTIVO
+                        || prestamo.getEstado_prestamo() == EstadoPrestamo.INCONCLUSO)
+                .sorted(Comparator.comparingInt(prestamo -> {
+                    if (prestamo.getEstado_prestamo() == EstadoPrestamo.EN_MORA) {
+                        return 1;
+                    }
+                    if (prestamo.getEstado_prestamo() == EstadoPrestamo.ACTIVO) {
+                        return 2;
+                    }
+                    if (prestamo.getEstado_prestamo() == EstadoPrestamo.INCONCLUSO) {
+                        return 3;
+                    }
+                    return 4;
+                }))
+                .collect(Collectors.toList());
 
-            // Verificar si la cantidad devuelta es menor a la prestada
-            if (cantidadDevuelta < detallePrestamo.getEjemplares_prestados()) {
-                devolucionCompleta = false;
-            }
+        listView.getItems().addAll(prestamosFiltrados);
+    }
 
-            // Establecer el estado del préstamo según si es completo o no
-            if (devolucionCompleta) {
-                prestamo.setEstado_prestamo(EstadoPrestamo.FINALIZADO);
+    // Mostrar el contenido del `toString` en el ListView
+    listView.setCellFactory(param -> new ListCell<Prestamo>() {
+        @Override
+        protected void updateItem(Prestamo prestamo, boolean empty) {
+            super.updateItem(prestamo, empty);
+            if (empty || prestamo == null) {
+                setText(null);
             } else {
-                prestamo.setEstado_prestamo(EstadoPrestamo.INCONCLUSO);
+                setText(prestamo.toString());  // Utiliza el método toString() de la entidad Prestamo
             }
-
-            detalles.add(detalleDevolucion);
         }
-        return detalles;
-    }
+    });
+
+    // Agregar un evento de doble clic para seleccionar el préstamo
+    listView.setOnMouseClicked(event -> {
+        if (event.getClickCount() == 2) {
+            Prestamo seleccionado = listView.getSelectionModel().getSelectedItem();
+            if (seleccionado != null) {
+                dialog.setResult(seleccionado);  // Establecer el préstamo seleccionado como el resultado
+                dialog.close();  // Cerrar el diálogo
+            }
+        }
+    });
+
+    VBox contenido = new VBox(10);
+    contenido.getChildren().add(listView);
+    contenido.setStyle("-fx-padding: 10px;");
+    dialog.getDialogPane().setContent(contenido);
+
+    dialog.setResultConverter(dialogButton -> {
+        if (dialogButton == seleccionarButtonType) {
+            return listView.getSelectionModel().getSelectedItem();
+        }
+        return null;
+    });
+
+    Optional<Prestamo> resultado = dialog.showAndWait();
+    return resultado.orElse(null);
+}
+
 
     public void AgregarSpinner() {
         Column_cantidadDevuelta.setCellFactory(col -> new TableCell<DetallePrestamo, Integer>() {
@@ -183,7 +233,6 @@ public class CrearDevolucionController {
                 } else {
                     DetallePrestamo detallePrestamo = tablaDetalleDevolcion.getItems().get(getIndex());
 
-                    // Crear el Spinner para las devoluciones, con el límite basado en los ejemplares prestados
                     SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, detallePrestamo.getEjemplares_prestados());
 
                     spinner.setValueFactory(valueFactory);
@@ -191,42 +240,118 @@ public class CrearDevolucionController {
 
                     setGraphic(spinner);
 
-                    // Listener para actualizar el valor devuelto en el DetallePrestamo
                     spinner.valueProperty().addListener((obs, valorViejo, valorNuevo) -> {
-                        // Actualizar el campo en la clase DetallePrestamo (por ahora usado para reflejar los devueltos)
-                        detallePrestamo.setEjemplares_prestados(valorNuevo);
+                        
+                        detallePrestamo.setEjemplares_devolver(valorNuevo);
                     });
                 }
             }
         });
     }
 
-    public void CargarTabla(long id) {
-        List<DetallePrestamo> lista = obtenerDetallePrestamo(id);
+    public void AAgregarSpinner(Prestamo prestamo) {
+        Column_cantidadDevuelta.setCellFactory(col -> new TableCell<DetallePrestamo, Integer>() {
+            private final Spinner<Integer> spinner = new Spinner<>();
 
-        if (lista == null) {
-            return;
-        } else {
-            for (DetallePrestamo prestamo : lista) {
-                tablaDetalleDevolcion.getItems().add(prestamo);
-                AgregarSpinner();
+            @Override
+            protected void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    Map<Long, Integer> mapa = ls.ObtenerCantidadDevueltaPorLibro(prestamo.getId_prestamo());
+
+                    DetallePrestamo detallePrestamo = tablaDetalleDevolcion.getItems().get(getIndex());
+
+                    Long idLibro = detallePrestamo.getId_libro().getIsbn();
+                    int cantidadPrestada = detallePrestamo.getEjemplares_prestados();
+                    int cantidadDevuelta = mapa.getOrDefault(idLibro, 0);
+
+                    int cantidadFaltante = cantidadPrestada - cantidadDevuelta;
+                    if (cantidadFaltante < 0) {
+                        cantidadFaltante = 0;
+                    }
+
+                    System.out.println(cantidadFaltante);
+                    SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, cantidadFaltante);
+                    spinner.setValueFactory(valueFactory);
+                    spinner.getValueFactory().setValue(item != null ? item : 0);
+                    System.out.println(spinner.getValue());
+                    setGraphic(spinner);
+
+                    spinner.valueProperty().addListener((obs, valorViejo, valorNuevo) -> {
+                        detallePrestamo.setEjemplares_devolver(valorNuevo);
+                    });
+                }
+            }
+        });
+    }
+
+    @FXML
+    void GuardarAction(ActionEvent event) {
+        Devolucion devolucion = new Devolucion(fecha_final.getValue(), Descripcion.getText().trim(), prestamo);
+        List<DetalleDevolucion> devoluciones = generarDetallesDevolucion(devolucion);
+
+        for (DetalleDevolucion detalle : devoluciones) {
+            Libro libro = detalle.getId_libro();
+            libro.setLibros_disponibles(libro.getLibros_disponibles() + detalle.getEjemplares_devueltos());
+            ls.Actualizar_Libro(libro);
+        }
+
+        devolucion.setDetalle_devolucion(devoluciones);
+        ls.Crear_Devolucion(devolucion);
+
+        prestamo.getDevolucion().add(devolucion);
+
+        ls.Actualizar_Prestamo(prestamo);
+
+        Cuenta cuenta = prestamo.getId_cuenta();
+
+        System.out.println("Devolución creada, préstamo actualizado y desasociado de la cuenta.");
+        limpiar();
+    }
+
+    public List<DetalleDevolucion> generarDetallesDevolucion(Devolucion devolucion) {
+        List<DetalleDevolucion> detalles = new ArrayList<>();
+        boolean devolucionCompleta = true;
+
+        for (DetallePrestamo detallePrestamo : tablaDetalleDevolcion.getItems()) {
+            DetalleDevolucion detalleDevolucion = new DetalleDevolucion();
+            int cantidadPrestada = detallePrestamo.getEjemplares_prestados();
+            long idLibro = detallePrestamo.getId_libro().getIsbn();
+
+            int cantidadDevueltaPreviamente = 0;
+
+            for (Devolucion devolucionPrevia : prestamo.getDevolucion()) {
+                for (DetalleDevolucion detalleDevolucionPrevio : devolucionPrevia.getDetalle_devolucion()) {
+                    if (detalleDevolucionPrevio.getId_libro().getIsbn() == idLibro) {
+                        cantidadDevueltaPreviamente += detalleDevolucionPrevio.getEjemplares_devueltos();
+                    }
+                }
             }
 
+            int cantidadDevueltaAhora = detallePrestamo.getEjemplares_devolver();
+int totalDevuelto = cantidadDevueltaPreviamente + cantidadDevueltaAhora;
+
+            detalleDevolucion.setEjemplares_devueltos(cantidadDevueltaAhora);
+            detalleDevolucion.setId_libro(detallePrestamo.getId_libro());
+            detalleDevolucion.setId_devolucion(devolucion);
+
+            if (totalDevuelto < cantidadPrestada) {
+                devolucionCompleta = false;
+            }
+
+            detalles.add(detalleDevolucion);
         }
+
+        if (devolucionCompleta) {
+            prestamo.setEstado_prestamo(EstadoPrestamo.FINALIZADO);
+        } else {
+            prestamo.setEstado_prestamo(EstadoPrestamo.INCONCLUSO);
+        }
+
+        return detalles;
     }
 
-    public List<DetallePrestamo> obtenerDetallePrestamo(Long id) {
-        prestamo = ls.Encontrar_prestamo_por_Usuario(id);
-        if (prestamo != null) {
-            List<DetallePrestamo> lista = prestamo.getId_detalleprestamo();
-            return lista;
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Prestamo no encontrado");
-            alert.setHeaderText("No tiene prestamos activos");
-            alert.setContentText("el usuario con identificador: " + id + " no contiene ningun prestamo activo");
-            alert.showAndWait();
-            return null;
-        }
-    }
 }

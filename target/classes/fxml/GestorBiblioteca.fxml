@@ -67,10 +67,6 @@
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></Button>
-                              <Button fx:id="bot_panelprestamo" alignment="BOTTOM_LEFT" contentDisplay="CENTER" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#PanelPrestamoAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/Dashboard.css" text="Panel de prestamos">
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor></Button>
                            </children></VBox>
                      </content>
                      <graphic>
@@ -85,10 +81,6 @@
                         <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/Dashboard.css">
                            <children>
                               <Button fx:id="bot_creardevolucion" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#CrearDevolucionAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/Dashboard.css" text="Crear devolucion">
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor></Button>
-                              <Button fx:id="bot_paneldevolucion" alignment="BOTTOM_LEFT" contentDisplay="CENTER" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#PanelDevolucionAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/Dashboard.css" text="Panel de devoluciones">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></Button>
@@ -119,7 +111,7 @@
                            </image></ImageView>
                      </graphic>
                   </TitledPane>
-                <TitledPane fx:id="libros" prefHeight="149.0" prefWidth="270.0" stylesheets="@../CSS/Dashboard.css" text="Libros" textFill="WHITE" visible="false">
+                <TitledPane fx:id="libros" prefHeight="149.0" prefWidth="270.0" stylesheets="@../CSS/Dashboard.css" text="Libros" textFill="WHITE">
                      <content>
                         <VBox prefHeight="129.0" prefWidth="268.0" styleClass="vbox-pane" stylesheets="@../CSS/Dashboard.css">
                            <children>
@@ -136,7 +128,7 @@
                            </image></ImageView>
                      </graphic>
                 </TitledPane>
-                  <TitledPane fx:id="informes" prefHeight="95.0" prefWidth="204.0" stylesheets="@../CSS/Dashboard.css" text="Informes" textFill="WHITE" visible="false">
+                  <TitledPane fx:id="informes" prefHeight="95.0" prefWidth="204.0" stylesheets="@../CSS/Dashboard.css" text="Informes" textFill="WHITE">
                      <content>
                         <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/Dashboard.css" />
                      </content>

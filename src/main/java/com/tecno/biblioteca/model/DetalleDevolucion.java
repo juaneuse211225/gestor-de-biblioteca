@@ -1,7 +1,6 @@
 package com.tecno.biblioteca.model;
 
 import jakarta.persistence.*;
-import com.tecno.biblioteca.enums.EstadoLibro;
 
 @Entity
 @Table(name = "Detalledevolucion")

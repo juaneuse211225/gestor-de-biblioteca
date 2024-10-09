@@ -78,15 +78,13 @@ public class DAOPrestamo {
     }
 
     public Prestamo EncontrarPrestamoActivoOMoraPorUsuario(Cuenta idUsuario) {
-    try {
-        TypedQuery<Prestamo> query = em.createQuery("SELECT p FROM Prestamo p WHERE p.id_cuenta = :id_cuenta AND (p.estado_prestamo = 'ACTIVO' OR p.estado_prestamo = 'MORA')", Prestamo.class);
-        
-        query.setParameter("id_cuenta", idUsuario);
-        return query.getSingleResult();
-    } catch (NoResultException e) {
-        return null; // No hay préstamos activos o en mora
+        try {
+            TypedQuery<Prestamo> query = em.createQuery("SELECT p FROM Prestamo p WHERE p.id_cuenta = :id_cuenta AND (p.estado_prestamo = 'ACTIVO' OR p.estado_prestamo = 'MORA')", Prestamo.class);
+
+            query.setParameter("id_cuenta", idUsuario);
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null; // No hay préstamos activos o en mora
+        }
     }
-}
-
-
 }

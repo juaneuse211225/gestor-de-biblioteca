@@ -6,6 +6,9 @@ import com.tecno.biblioteca.model.Devolucion;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class DAODevolucion {
 
@@ -75,4 +78,26 @@ public class DAODevolucion {
             throw new RuntimeException("Error al eliminar la devolucion ", e);
         }
     }
+
+    public Map<Long, Integer> obtenerCantidadDevueltaPorLibro(Long prestamoId) {
+      
+    String jpql = "SELECT dd.id_libro.isbn, SUM(dd.ejemplares_devueltos) "
+                + "FROM Devolucion d "
+                + "JOIN d.detalle_devolucion dd "
+                + "WHERE d.prestamo.id_prestamo = :prestamoId "
+                + "GROUP BY dd.id_libro.isbn";
+
+        TypedQuery<Object[]> query = em.createQuery(jpql, Object[].class);
+        query.setParameter("prestamoId", prestamoId);
+
+        List<Object[]> resultados = query.getResultList();
+
+        // Convertir el resultado a un Map con ID del libro como clave y cantidad devuelta como valor
+        return resultados.stream()
+                .collect(Collectors.toMap(
+                        result -> (Long) result[0], // ID del libro
+                        result -> ((Number) result[1]).intValue() // Cantidad devuelta
+                ));
+    }
+
 }

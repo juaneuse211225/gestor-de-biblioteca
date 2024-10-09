@@ -28,11 +28,13 @@ public class Prestamo {
     @Enumerated(EnumType.STRING)
     private EstadoPrestamo estado_prestamo;
 
-    @OneToOne(mappedBy = "prestamo", optional = true)
-    private Devolucion id_devolucion;
+    @OneToMany(mappedBy = "prestamo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Devolucion> devolucion;
 
     @Basic
     private String observaciones;
+    
+    
 
     public Prestamo() {
     }
@@ -44,7 +46,7 @@ public class Prestamo {
         this.fecha_relativa_devolucion = fecha_relativa_devolucion;
         this.observaciones = observaciones;
         this.estado_prestamo = EstadoPrestamo.ACTIVO;
-        this.id_devolucion = null;
+        this.devolucion = null;
 
     }
 
@@ -96,12 +98,12 @@ public class Prestamo {
         this.estado_prestamo = estado_prestamo;
     }
 
-    public Devolucion getId_devolucion() {
-        return id_devolucion;
+    public List<Devolucion> getDevolucion() {
+        return devolucion;
     }
 
-    public void setId_devolucion(Devolucion id_devolucion) {
-        this.id_devolucion = id_devolucion;
+    public void setDevolucion(List<Devolucion> devolucion) {
+        this.devolucion = devolucion;
     }
 
     public String getObservaciones() {
@@ -114,7 +116,7 @@ public class Prestamo {
 
     @Override
     public String toString() {
-        return "Prestamo{" + "id_prestamo=" + id_prestamo + ", fecha_inicio_prestamo=" + fecha_inicio_prestamo + ", fecha_relativa_devolucion=" + fecha_relativa_devolucion + ", estado_prestamo=" + estado_prestamo + ", observaciones=" + observaciones + '}';
+        return ", fecha de inicio: " + fecha_inicio_prestamo + "- estado del prestamo: " + estado_prestamo + "";
     }
     
 }

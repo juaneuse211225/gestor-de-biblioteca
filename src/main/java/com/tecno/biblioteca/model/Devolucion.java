@@ -17,8 +17,8 @@ public class Devolucion {
     @Basic
     private String observaciones;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_prestamo", unique = true, referencedColumnName = "id_prestamo")
+    @ManyToOne
+    @JoinColumn(name = "prestamo", nullable = false)
     private Prestamo prestamo;
 
     @OneToMany(mappedBy = "id_devolucion", cascade = CascadeType.ALL, orphanRemoval = true)

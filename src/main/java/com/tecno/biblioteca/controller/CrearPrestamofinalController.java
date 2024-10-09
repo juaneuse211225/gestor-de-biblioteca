@@ -209,7 +209,7 @@ public class CrearPrestamofinalController {
             prestamo.setFecha_inicio_prestamo(fecha_inicio.getValue());
             prestamo.setFecha_relativa_devolucion(fecha_entrega.getValue());
             prestamo.setId_detalleprestamo(EditarDetalles());
-            prestamo.setId_devolucion(null);
+//            prestamo.setDevolucion(null);
             prestamo.setObservaciones(area_descripsion.getText().trim());
 
         }

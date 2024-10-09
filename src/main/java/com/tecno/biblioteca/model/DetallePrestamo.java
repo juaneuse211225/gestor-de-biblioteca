@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 
 @Entity(name = "Detalleprestamo")
 public class DetallePrestamo {
@@ -25,6 +26,9 @@ public class DetallePrestamo {
 
     @Column(nullable = false)
     private int ejemplares_prestados;
+    
+    @Transient
+    private int ejemplares_devolver;
 
     public DetallePrestamo() {
     }
@@ -67,4 +71,11 @@ public class DetallePrestamo {
         this.ejemplares_prestados = ejemplares_prestados;
     }
 
+    public void setEjemplares_devolver(int ejemplares_devolver) {
+        this.ejemplares_devolver = ejemplares_devolver;
+    }
+
+    public int getEjemplares_devolver() {
+        return ejemplares_devolver;
+    }
 }

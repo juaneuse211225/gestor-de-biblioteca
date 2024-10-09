@@ -8,6 +8,7 @@ import static com.tecno.biblioteca.config.HibernateUtil.*;
 import com.tecno.biblioteca.enums.EstadoCuenta;
 import com.tecno.biblioteca.enums.EstadoLibro;
 import com.tecno.biblioteca.enums.TipoCuenta;
+import java.util.Map;
 
 /**
  * @author juan
@@ -122,6 +123,10 @@ public class LibraryService {
     
     public Libro Encontrar_Libro(Long id){
         return d_libro.findEntityById(id);
+    }
+    
+    public Map<Long, Integer> ObtenerCantidadDevueltaPorLibro(Long prestamoId){
+        return d_devolucion.obtenerCantidadDevueltaPorLibro(prestamoId);
     }
 }
 
