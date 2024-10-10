@@ -12,6 +12,7 @@
 /home/juan/eclipse-workspace/biblioteca/src/main/java/com/tecno/biblioteca/controller/PanelUsuarioController.java
 /home/juan/eclipse-workspace/biblioteca/src/main/java/com/tecno/biblioteca/dao/DAODevolucion.java
 /home/juan/eclipse-workspace/biblioteca/src/main/java/com/tecno/biblioteca/model/DetalleDevolucion.java
+/home/juan/eclipse-workspace/biblioteca/src/main/java/com/tecno/biblioteca/controller/SnackPersonalizado.java
 /home/juan/eclipse-workspace/biblioteca/src/main/java/com/tecno/biblioteca/enums/EstadoCuenta.java
 /home/juan/eclipse-workspace/biblioteca/src/main/java/com/tecno/biblioteca/dao/DAOCuenta.java
 /home/juan/eclipse-workspace/biblioteca/src/main/java/com/tecno/biblioteca/dao/DAODetalleDevolucion.java

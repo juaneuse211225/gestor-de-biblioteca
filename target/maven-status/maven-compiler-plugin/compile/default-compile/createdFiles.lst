@@ -1,5 +1,6 @@
 com/tecno/biblioteca/dao/DAOCategoria.class
 com/tecno/biblioteca/config/HibernateUtil.class
+com/tecno/biblioteca/controller/CrearPrestamofinalController$1$1$1.class
 com/tecno/biblioteca/dao/DAODetalleDevolucion.class
 com/tecno/biblioteca/controller/DatosController.class
 com/tecno/biblioteca/model/DetalleDevolucion.class
@@ -7,12 +8,15 @@ com/tecno/biblioteca/controller/PanelLibrosController.class
 com/tecno/biblioteca/enums/EstadoLibro.class
 com/tecno/biblioteca/controller/GestorController.class
 com/tecno/biblioteca/controller/CrearDevolucionController$1.class
+com/tecno/biblioteca/controller/CrearDevolucionController$4.class
 com/tecno/biblioteca/dao/DAOCuenta.class
 com/tecno/biblioteca/model/Libro.class
 com/tecno/biblioteca/App.class
+com/tecno/biblioteca/controller/CrearPrestamofinalController$1$1.class
 com/tecno/biblioteca/dao/DAODetallePrestamo.class
 com/tecno/biblioteca/controller/CrearPrestamofinalController$1.class
 com/tecno/biblioteca/controller/CrearDevolucionController$2.class
+com/tecno/biblioteca/controller/SnackPersonalizado.class
 com/tecno/biblioteca/model/Cuenta.class
 com/tecno/biblioteca/dao/DAOPrestamo.class
 com/tecno/biblioteca/dao/DAODevolucion.class
@@ -20,6 +24,8 @@ com/tecno/biblioteca/controller/PanelUsuarioController.class
 com/tecno/biblioteca/service/LibraryService.class
 com/tecno/biblioteca/model/DetallePrestamo.class
 com/tecno/biblioteca/dao/DAOLibro.class
+com/tecno/biblioteca/controller/CrearDevolucionController$1$1.class
+com/tecno/biblioteca/controller/CrearPrestamofinalController$2.class
 com/tecno/biblioteca/controller/CrearPrestamofinalController.class
 com/tecno/biblioteca/controller/CrearLibroController.class
 com/tecno/biblioteca/enums/EstadoPrestamo.class

@@ -87,7 +87,7 @@ public class LoginController {
         }
 
     }
-
+    
     public int autenticacion(String contraseña, Long id) {
         Cuenta cuenta = ls.Encontrar_Cuenta(id);
         if (cuenta != null && cuenta.getContraseña().equals(contraseña)) {

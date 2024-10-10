@@ -36,7 +36,7 @@
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="930.0" BorderPane.alignment="CENTER">
          <children>
             <TextField id="texto" fx:id="text_busqueda" layoutX="10.0" layoutY="53.0" prefHeight="25.0" prefWidth="225.0" promptText="N° identificacion" styleClass="text-field" stylesheets="@../CSS/Devolucion.css" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="53.0" />
-            <TextArea fx:id="Descripcion" disable="true" editable="false" layoutX="14.0" layoutY="179.0" prefHeight="216.0" prefWidth="385.0" promptText="Descripcion" stylesheets="@../CSS/Devolucion.css" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="179.0" />
+            <TextArea fx:id="Descripcion" layoutX="14.0" layoutY="179.0" prefHeight="216.0" prefWidth="385.0" promptText="Descripcion" stylesheets="@../CSS/Devolucion.css" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="179.0" />
             <DatePicker fx:id="fecha_final" layoutX="10.0" layoutY="141.0" prefHeight="25.0" prefWidth="225.0" promptText="Fecha final" styleClass="date-picker" stylesheets="@../CSS/Devolucion.css" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="141.0" />
             <TableView fx:id="tablaDetalleDevolcion" layoutX="407.0" layoutY="53.0" prefHeight="342.0" prefWidth="510.0" stylesheets="@../CSS/Devolucion.css" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="53.0">
                <columns>

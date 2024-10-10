@@ -147,7 +147,12 @@ public class PanelLibrosController {
     @FXML
     void EliminarAction(ActionEvent event) {
         Libro libro = ObtenerSeleccion();
+        if(libro != null){
         ls.ELiminar_Libro(libro);
+        CargarDatosEnTabla();
+        }else{
+            System.out.println("Seleccione un libro para eliminar");
+        }
     }
 
     @FXML
@@ -162,7 +167,11 @@ public class PanelLibrosController {
     }
 
     public Libro ObtenerSeleccion() {
-        return tabla_libros.getSelectionModel().getSelectedItem();
+        Libro seleccion = tabla_libros.getSelectionModel().getSelectedItem();
+        if(seleccion != null){
+            return seleccion;
+        }
+        return null;
     }
 
     public void VentanaModal() {

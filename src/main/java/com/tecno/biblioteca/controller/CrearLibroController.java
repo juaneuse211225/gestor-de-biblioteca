@@ -77,6 +77,7 @@ public class CrearLibroController {
 
     public void CargarCategorias() {
         List<Categoria> cat = ls.Encontrar_Categorias();
+        Categorias.getItems().clear();
         for (Categoria c1 : cat) {
             Categorias.getItems().addAll(c1.getCategoria());
         }

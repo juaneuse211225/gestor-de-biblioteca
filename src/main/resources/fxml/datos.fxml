@@ -25,16 +25,16 @@
    <center>
       <Pane maxHeight="274.0" maxWidth="400.0" prefHeight="274.0" prefWidth="400.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox fx:id="combo_rol" layoutX="206.0" layoutY="79.0" prefHeight="26.0" prefWidth="170.0" stylesheets="@../CSS/Datos.css" visibleRowCount="5" />
+            <ComboBox fx:id="combo_rol" layoutX="14.0" layoutY="180.0" prefHeight="26.0" prefWidth="170.0" stylesheets="@../CSS/Datos.css" visible="false" visibleRowCount="5" />
             <Button fx:id="bot_guardar" layoutX="292.0" layoutY="224.0" mnemonicParsing="false" onAction="#GuardarAction" prefWidth="100.0" styleClass="flat-button-submit" stylesheets="@../CSS/Datos.css" text="guardar" />
             <Button fx:id="bot_cancelar" cancelButton="true" layoutX="187.0" layoutY="224.0" mnemonicParsing="false" onAction="#CancelAction" prefWidth="100.0" styleClass="flat-button-cancel" stylesheets="@../CSS/Datos.css" text="Cancelar" />
-            <PasswordField fx:id="text_contra" layoutX="206.0" layoutY="130.0" prefHeight="26.0" prefWidth="170.0" promptText="Contraseña" stylesheets="@../CSS/Datos.css" />
+            <PasswordField fx:id="text_contra" layoutX="202.0" layoutY="133.0" prefHeight="26.0" prefWidth="170.0" promptText="Contraseña" stylesheets="@../CSS/Datos.css" visible="false" />
             <TextField fx:id="text_id" layoutX="14.0" layoutY="28.0" prefHeight="26.0" prefWidth="170.0" promptText="N° Identificacion" stylesheets="@../CSS/Datos.css" />
             <TextField fx:id="text_nombre" layoutX="14.0" layoutY="79.0" prefHeight="26.0" prefWidth="170.0" promptText="Nombre(s)" stylesheets="@../CSS/Datos.css" />
             <TextField fx:id="text_apellido" layoutX="14.0" layoutY="133.0" prefHeight="26.0" prefWidth="170.0" promptText="Apellido(s)" stylesheets="@../CSS/Datos.css" />
             <TextField fx:id="text_correo" layoutX="206.0" layoutY="28.0" prefHeight="26.0" prefWidth="170.0" promptText="Correo" styleClass="field" stylesheets="@../CSS/Datos.css" />
             <Separator layoutX="15.0" layoutY="213.0" prefHeight="10.0" prefWidth="370.0" style="-fx-background-color: #FFFFFF;" />
-            <TextField fx:id="text_telefono" layoutX="14.0" layoutY="179.0" prefHeight="26.0" prefWidth="170.0" promptText="Telefono" stylesheets="@../CSS/Datos.css" />
+            <TextField fx:id="text_telefono" layoutX="206.0" layoutY="79.0" prefHeight="26.0" prefWidth="170.0" promptText="Telefono" stylesheets="@../CSS/Datos.css" />
          </children>
       </Pane>
    </center>

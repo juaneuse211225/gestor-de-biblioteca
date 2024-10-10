@@ -130,7 +130,14 @@
                 </TitledPane>
                   <TitledPane fx:id="informes" prefHeight="95.0" prefWidth="204.0" stylesheets="@../CSS/Dashboard.css" text="Informes" textFill="WHITE">
                      <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/Dashboard.css" />
+                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/Dashboard.css">
+                           <children>
+                              <Button fx:id="bot_panelInformes" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#PanelLibrosAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/Dashboard.css" text="Panel de informes">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children></VBox>
                      </content>
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">

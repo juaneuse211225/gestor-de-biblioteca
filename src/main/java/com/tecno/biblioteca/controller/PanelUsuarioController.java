@@ -133,8 +133,13 @@ public class PanelUsuarioController {
     @FXML
     void EliminarAction(ActionEvent event) {
         Cuenta c1 = ObtenerSeleccion();
-        ls.ELiminar_Cuenta(c1);
+        if(c1 != null){
+            ls.ELiminar_Cuenta(c1);
         CargarDatosEnTabla();
+        }else{
+            System.out.println("Seleccione a un usuario para eliminar");
+        }
+        
     }
 
     @FXML
@@ -194,9 +199,11 @@ public class PanelUsuarioController {
 
     public Cuenta ObtenerSeleccion() {
         Cuenta seleccion = TablaUsuarios.getSelectionModel().getSelectedItem();
-        Cuenta buscar = ls.Encontrar_Cuenta(seleccion.getId());
+        if(seleccion != null){
+             Cuenta buscar = ls.Encontrar_Cuenta(seleccion.getId());
         return buscar;
-
+        }
+        return null;
     }
 
     public void CargarDatosEnTabla() {

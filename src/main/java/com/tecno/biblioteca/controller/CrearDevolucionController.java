@@ -8,6 +8,7 @@ import com.tecno.biblioteca.model.Devolucion;
 import com.tecno.biblioteca.model.Libro;
 import com.tecno.biblioteca.model.Prestamo;
 import com.tecno.biblioteca.service.LibraryService;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -20,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
@@ -36,6 +38,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
+import javafx.util.Callback;
 
 public class CrearDevolucionController {
 
@@ -88,24 +91,60 @@ public class CrearDevolucionController {
         Column_titulo.setCellValueFactory(tit
                 -> new SimpleObjectProperty<>(tit.getValue().getId_libro().getTitulo()
                 ));
+        setDesactivar(true);
     }
 
     @FXML
     void BuscarAction(ActionEvent event) {
+       
         if (text_busqueda.getText().trim().isBlank()) {
             System.out.println("por favor ingresar el numero de identificacion del usuario");
             return;
         }
-
+        
         String id = text_busqueda.getText().trim();
-
+        tablaDetalleDevolcion.getItems().clear();
+        
         Cuenta cuenta = ls.Encontrar_Cuenta(Long.parseLong(id));
         if (cuenta == null) {
             System.out.println("Usuario no encontrado o inexistente");
             return;
         }
         prestamo = mostrarDialogo(cuenta);
+        if(prestamo == null){
+            System.out.println("No hay prestamo seleccionado");
+            return;
+        }
+        
         CargarTabla(prestamo);
+        
+        fecha_final.setDayCellFactory(new Callback<DatePicker, DateCell>() {
+                    @Override
+                    public DateCell call(final DatePicker datePicker) {
+                        return new DateCell() {
+                            @Override
+                            public void updateItem(LocalDate item, boolean empty) {
+                                super.updateItem(item, empty);
+
+                                // Deshabilitar las fechas de inicio del prestamo
+                                if (item.isBefore(prestamo.getFecha_inicio_prestamo())) {
+                                    setDisable(true);
+                                }
+                            }
+                        };
+                    }
+                });
+        setDesactivar(false);
+        
+        
+    }
+    
+    public void setDesactivar(boolean activado){
+        tablaDetalleDevolcion.setDisable(activado);
+        fecha_final.setDisable(activado);
+        Descripcion.setDisable(activado);
+        bot_guardar.setDisable(activado);
+        
     }
 
     public void CargarTabla(Prestamo prestamo) {
@@ -132,12 +171,13 @@ public class CrearDevolucionController {
     @FXML
     void CancelarAction(ActionEvent event) {
         limpiar();
+        setDesactivar(true);
     }
 
     public void limpiar() {
         text_busqueda.setText("");
         Descripcion.setText("");
-        fecha_final.setValue(null);
+        fecha_final.setValue(LocalDate.now());
         prestamo.equals(new Prestamo());
         tablaDetalleDevolcion.getItems().clear();
     }
@@ -310,6 +350,7 @@ public class CrearDevolucionController {
 
         System.out.println("Devolución creada, préstamo actualizado y desasociado de la cuenta.");
         limpiar();
+        setDesactivar(true);
     }
 
     public List<DetalleDevolucion> generarDetallesDevolucion(Devolucion devolucion) {

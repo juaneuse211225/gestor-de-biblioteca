@@ -1,5 +1,6 @@
 package com.tecno.biblioteca.controller;
 
+import com.tecno.biblioteca.enums.EstadoCuenta;
 import com.tecno.biblioteca.enums.EstadoPrestamo;
 import com.tecno.biblioteca.model.Cuenta;
 import com.tecno.biblioteca.model.DetallePrestamo;
@@ -11,11 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
@@ -26,6 +30,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.util.Callback;
 
 public class CrearPrestamofinalController {
 
@@ -80,7 +85,34 @@ public class CrearPrestamofinalController {
 
     @FXML
     public void initialize() {
+        //Se añade un changeListener al datepicker
+        
+        fecha_inicio.valueProperty().addListener(new ChangeListener<LocalDate>() {
+            @Override
+            public void changed(ObservableValue<? extends LocalDate> ov, LocalDate t1, LocalDate t2) {
+                
+                //se bloquean todos los dias anteriores a la fecha de creacion mas 8 dias para el datepicker encargado de la fecha final
+                fecha_entrega.setDayCellFactory(new Callback<DatePicker, DateCell>() {
+                    @Override
+                    public DateCell call(final DatePicker datePicker) {
+                        return new DateCell() {
+                            @Override
+                            public void updateItem(LocalDate item, boolean empty) {
+                                super.updateItem(item, empty);
+
+                                // Deshabilitar las fechas anteriores a la fecha mínima
+                                if (item.isBefore(t2.plusDays(7))) {
+                                    setDisable(true);
+                                }
+                            }
+                        };
+                    }
+                });
+            }
+        });
+        
         fecha_inicio.setValue(LocalDate.now());
+        
         tabla_detalleprestamo.setRowFactory(tv -> {
             TableRow<DetallePrestamo> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -113,14 +145,28 @@ public class CrearPrestamofinalController {
         Column_titulo.setCellValueFactory(celda_titulo
                 -> new SimpleObjectProperty<>(celda_titulo.getValue().getId_libro().getTitulo()
                 ));
+        
+        setDesactivar(true);
+    }
+    
+    public void setDesactivar(Boolean activar){
+        tabla_detalleprestamo.setDisable(activar);
+        bot_agregarlibro.setDisable(activar);
+        area_descripsion.setDisable(activar);
+        fecha_entrega.setDisable(activar);
+        fecha_inicio.setDisable(activar);
+        text_BuscarLibro.setDisable(activar);
+        bot_guardar.setDisable(activar);
     }
 
     @FXML
-    void GuardarAction(ActionEvent event) {
+    void GuardarAction(ActionEvent event
+    ) {
         if (prestamo != null && !(area_descripsion.getText().isBlank())) {
 
             ls.Crear_Prestamo(crearprestamo());
             limpiar();
+            setDesactivar(true);
         }
 
     }
@@ -128,6 +174,7 @@ public class CrearPrestamofinalController {
     @FXML
     void RegresarAction(ActionEvent event) {
         limpiar();
+        setDesactivar(true);
     }
 
     @FXML
@@ -171,7 +218,7 @@ public class CrearPrestamofinalController {
             // Buscar la cuenta por ID
             Cuenta cuenta = ls.Encontrar_Cuenta(id);
 
-            if (cuenta == null) {
+            if (cuenta == null || cuenta.getEstado_cuenta() == EstadoCuenta.ELIMINADO) {
                 System.err.println("El usuario no fue encontrado");
                 Nombre.setText("");
                 return;
@@ -184,6 +231,7 @@ public class CrearPrestamofinalController {
 
             // Si no tiene préstamos activos, permitir crear uno nuevo
             if (op.isEmpty()) {
+                setDesactivar(false);
                 Nombre.setText(cuenta.getApellido() + ", " + cuenta.getNombre());
 
                 prestamo.setId_cuenta(cuenta);
@@ -303,8 +351,8 @@ public class CrearPrestamofinalController {
         text_BuscarUsuario.setText("");
         Nombre.setText("");
         area_descripsion.setText("");
-        fecha_entrega.setValue(null);
-        fecha_inicio.setValue(null);
+        fecha_inicio.setValue(LocalDate.now());
+        fecha_entrega.setValue(LocalDate.now().plusDays(7));
         prestamo.equals(new Prestamo());
         tabla_detalleprestamo.getItems().clear();
     }

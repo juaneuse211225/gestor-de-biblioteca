@@ -27,7 +27,7 @@
    <right>
       <AnchorPane fx:id="panel1" maxHeight="503.0" maxWidth="322.0" prefHeight="503.0" prefWidth="322.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="Bot_Entrar" layoutX="114.0" layoutY="311.0" mnemonicParsing="false" onAction="#ActionEntrar" styleClass="flat-button" stylesheets="@../CSS/Login.css" text="Entrar">
+            <Button fx:id="Bot_Entrar" defaultButton="true" layoutX="114.0" layoutY="311.0" mnemonicParsing="false" onAction="#ActionEntrar" styleClass="flat-button" stylesheets="@../CSS/Login.css" text="Entrar">
                <font>
                   <Font size="17.0" />
                </font>
