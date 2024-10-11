@@ -84,6 +84,12 @@ public class CrearDevolucionController {
     @FXML
     public void initialize() {
 
+        text_busqueda.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                text_busqueda.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        
         Column_cantidadPrestada.setCellValueFactory(new PropertyValueFactory<>("ejemplares_prestados"));
         Column_isbn.setCellValueFactory(isbn
                 -> new SimpleObjectProperty<>(isbn.getValue().getId_libro().getIsbn()

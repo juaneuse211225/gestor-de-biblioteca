@@ -71,6 +71,19 @@ public class CrearLibroController {
 
     @FXML
     public void initialize() {
+        
+        text_isbn.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                text_isbn.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        
+        text_ejemplares_total.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                text_ejemplares_total.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        
         CargarCategorias();
 
     }

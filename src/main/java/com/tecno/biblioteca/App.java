@@ -2,6 +2,7 @@ package com.tecno.biblioteca;
 
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class App extends Application {
+
+    private static Thread thread;
 
     @Override
     public void start(Stage primaryStage) {
@@ -23,13 +26,29 @@ public class App extends Application {
             primaryStage.setWidth(605);
             primaryStage.show();
 
+            primaryStage.setOnCloseRequest(event -> {
+                if (thread != null && thread.isAlive()) {
+                    thread.interrupt();
+                }
+                Platform.exit();
+            });
+
         } catch (IOException e) {
 
             System.err.println("Se ha producido una exception: " + e.getMessage());
         }
     }
 
+    @Override
+    public void init() throws Exception {
+        HiloVerificacionPrestamos hilo = new HiloVerificacionPrestamos();
+        thread = new Thread(hilo);
+        thread.setDaemon(true);
+        thread.start();
+    }
+
     public static void main(String[] args) throws Exception {
+
         launch(args);
 
     }

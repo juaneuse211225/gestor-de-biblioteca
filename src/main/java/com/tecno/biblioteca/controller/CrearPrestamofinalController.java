@@ -18,6 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
@@ -32,7 +33,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.util.Callback;
 
-public class CrearPrestamofinalController {
+public class CrearPrestamoController {
 
     LibraryService ls = new LibraryService();
 
@@ -86,6 +87,18 @@ public class CrearPrestamofinalController {
     @FXML
     public void initialize() {
         //Se añade un changeListener al datepicker
+        
+        text_BuscarLibro.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                text_BuscarLibro.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        
+        text_BuscarUsuario.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                text_BuscarUsuario.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
         
         fecha_inicio.valueProperty().addListener(new ChangeListener<LocalDate>() {
             @Override
@@ -158,6 +171,14 @@ public class CrearPrestamofinalController {
         text_BuscarLibro.setDisable(activar);
         bot_guardar.setDisable(activar);
     }
+    
+    private void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
 
     @FXML
     void GuardarAction(ActionEvent event
@@ -219,7 +240,7 @@ public class CrearPrestamofinalController {
             Cuenta cuenta = ls.Encontrar_Cuenta(id);
 
             if (cuenta == null || cuenta.getEstado_cuenta() == EstadoCuenta.ELIMINADO) {
-                System.err.println("El usuario no fue encontrado");
+                mostrarAlerta("Usuario no encontrado","El usuario no fue encontrado");
                 Nombre.setText("");
                 return;
             }
@@ -238,7 +259,7 @@ public class CrearPrestamofinalController {
                 cuenta.getId_prestamo().add(prestamo);  // Asociar el nuevo préstamo a la cuenta
             } else {
                 // Si tiene un préstamo activo o en mora, mostrar un mensaje de error
-                System.err.println("El usuario ya tiene un préstamo activo o en mora. Finalice el préstamo antes de crear uno nuevo.");
+                mostrarAlerta("Prestamo activo", "El usuario ya tiene un préstamo activo o en mora. Finalice el préstamo antes de crear uno nuevo.");
                 Nombre.setText("");
             }
         }

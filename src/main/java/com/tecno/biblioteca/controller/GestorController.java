@@ -79,7 +79,7 @@ public class GestorController {
         try {
             panelUsuario = FXMLLoader.load(getClass().getResource("/fxml/PanelUsuario.fxml"));
             panelLibro = FXMLLoader.load(getClass().getResource("/fxml/PanelLibros.fxml"));
-            panelcrearPrestamo = FXMLLoader.load(getClass().getResource("/fxml/crearprestamovistafinal.fxml"));
+            panelcrearPrestamo = FXMLLoader.load(getClass().getResource("/fxml/crearprestamo.fxml"));
             panelcrearDevolucion = FXMLLoader.load(getClass().getResource("/fxml/panelDevolucion.fxml"));
             Panel_Stack.getChildren().addAll(panelUsuario, panelLibro, panelcrearPrestamo,  panelcrearDevolucion);
 

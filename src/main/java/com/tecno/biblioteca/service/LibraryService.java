@@ -128,5 +128,9 @@ public class LibraryService {
     public Map<Long, Integer> ObtenerCantidadDevueltaPorLibro(Long prestamoId){
         return d_devolucion.obtenerCantidadDevueltaPorLibro(prestamoId);
     }
+    
+    public List<Prestamo> EncontrarPrestamosActivos(){
+        return d_prestamo.EncontrarPrestamosActivos();
+    }
 }
 

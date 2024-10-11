@@ -10,6 +10,7 @@ import com.tecno.biblioteca.model.Prestamo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
+import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
 
 public class DAOPrestamo {
@@ -85,6 +86,16 @@ public class DAOPrestamo {
             return query.getSingleResult();
         } catch (NoResultException e) {
             return null; // No hay préstamos activos o en mora
+        }
+    }
+    
+    public List<Prestamo> EncontrarPrestamosActivos(){
+        try{
+          TypedQuery<Prestamo> query = em.createQuery("SELECT p FROM Prestamo p WHERE p.estado_prestamo = 'ACTIVO'", Prestamo.class);
+          return query.getResultList();
+        }catch(PersistenceException e){
+            System.out.println("algo paso");
+            return null;
         }
     }
 }
