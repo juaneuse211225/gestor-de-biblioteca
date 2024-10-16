@@ -8,6 +8,8 @@ import static com.tecno.biblioteca.config.HibernateUtil.*;
 import com.tecno.biblioteca.enums.EstadoCuenta;
 import com.tecno.biblioteca.enums.EstadoLibro;
 import com.tecno.biblioteca.enums.TipoCuenta;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Map;
 
 /**
@@ -131,6 +133,13 @@ public class LibraryService {
     
     public List<Prestamo> EncontrarPrestamosActivos(){
         return d_prestamo.EncontrarPrestamosActivos();
+    }
+    public List<Prestamo> EncontrarPrestamosEnmora(){
+        return d_prestamo.EncontrarPrestamoMora();
+    }
+    
+    public Map<Month, List<Prestamo>> obtenerPrestamosEntreFechas(LocalDate fechainicio, LocalDate fechafinal){
+        return d_prestamo.obtenerPrestamosEntreFechas(fechainicio, fechafinal);
     }
 }
 

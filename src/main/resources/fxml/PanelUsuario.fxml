@@ -13,11 +13,11 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="930.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tecno.biblioteca.controller.PanelUsuarioController">
    <top>
-      <Pane prefHeight="100.0" prefWidth="930.0" styleClass="title_pane" stylesheets="@../CSS/panelUsuarios.css" BorderPane.alignment="CENTER">
+      <Pane id="titulo-panel" prefHeight="100.0" prefWidth="930.0" stylesheets="@../CSS/estilos.css" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="36.0" layoutY="30.0" prefHeight="40.0" prefWidth="273.0" text="Panel de Usuarios" textFill="WHITE">
+            <Label id="titulo" layoutX="36.0" layoutY="30.0" prefHeight="40.0" prefWidth="273.0" stylesheets="@../CSS/estilos.css" text="Panel de Usuarios">
                <font>
-                  <Font size="30.0" />
+                  <Font size="11.0" />
                </font>
             </Label>
          </children></Pane>
@@ -25,7 +25,7 @@
    <center>
       <AnchorPane prefHeight="505.0" prefWidth="930.0" style="-fx-background-color: #f2f2f2;" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="TablaUsuarios" layoutX="14.0" layoutY="14.0" prefHeight="361.0" prefWidth="707.0" stylesheets="@../CSS/panelUsuarios.css" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="20.0">
+            <TableView id="tabla" fx:id="TablaUsuarios" layoutX="14.0" layoutY="14.0" prefHeight="361.0" prefWidth="707.0" stylesheets="@../CSS/estilos.css" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="20.0">
               <columns>
                 <TableColumn fx:id="column_id" editable="false" prefWidth="75.0" sortable="false" text="IDENTIFICADOR" />
                 <TableColumn fx:id="column_nombre" editable="false" prefWidth="75.0" text="NOMBRE" />
@@ -38,10 +38,10 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Button fx:id="bot_guardar" layoutX="15.0" layoutY="387.0" mnemonicParsing="false" onAction="#GuardarAction" styleClass="flat-button" stylesheets="@../CSS/panelUsuarios.css" text="AÑADIR" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
-            <Button fx:id="bot_eliminar" layoutX="123.0" layoutY="388.0" mnemonicParsing="false" onAction="#EliminarAction" styleClass="flat-button" stylesheets="@../CSS/panelUsuarios.css" text="ELIMINAR" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="138.0" />
-            <TextField fx:id="text_busqueda" layoutX="299.0" layoutY="454.0" prefHeight="30.0" prefWidth="410.0" promptText="Buscar usuario" stylesheets="@../CSS/panelUsuarios.css" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="299.0" AnchorPane.rightAnchor="221.0" />
-            <ComboBox fx:id="combo_filtro" layoutX="734.0" layoutY="454.0" prefHeight="30.0" prefWidth="181.0" styleClass="arrow" stylesheets="@../CSS/panelUsuarios.css" />
+            <Button id="boton" fx:id="bot_guardar" layoutX="15.0" layoutY="387.0" mnemonicParsing="false" onAction="#GuardarAction" stylesheets="@../CSS/estilos.css" text="AÑADIR" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
+            <Button id="boton" fx:id="bot_eliminar" layoutX="123.0" layoutY="388.0" mnemonicParsing="false" onAction="#EliminarAction" stylesheets="@../CSS/estilos.css" text="ELIMINAR" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="138.0" />
+            <TextField id="flat-textfild" fx:id="text_busqueda" layoutX="299.0" layoutY="454.0" prefHeight="30.0" prefWidth="410.0" promptText="Buscar usuario" stylesheets="@../CSS/estilos.css" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="299.0" AnchorPane.rightAnchor="221.0" />
+            <ComboBox id="combo" fx:id="combo_filtro" layoutX="734.0" layoutY="454.0" prefHeight="30.0" prefWidth="181.0" stylesheets="@../CSS/estilos.css" />
          </children>
       </AnchorPane>
    </center>

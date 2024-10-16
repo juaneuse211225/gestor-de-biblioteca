@@ -19,7 +19,7 @@
    <top>
       <Pane prefHeight="45.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="boton_cerrar" layoutX="1146.0" layoutY="-2.0" mnemonicParsing="false" onAction="#Cerrar_Action" prefHeight="50.0" prefWidth="50.0" styleClass="cerrar-button" stylesheets="@../CSS/Styles2.css" text="X">
+            <Button fx:id="boton_cerrar" layoutX="1148.0" layoutY="-2.0" mnemonicParsing="false" onAction="#Cerrar_Action" prefHeight="50.0" prefWidth="50.0" styleClass="cerrar-button" stylesheets="@../CSS/estilos.css" text="X">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font></Button>
@@ -42,11 +42,11 @@
          <children>
             <Accordion prefHeight="320.0" prefWidth="270.0">
               <panes>
-                  <TitledPane fx:id="usuarios" prefHeight="92.0" prefWidth="250.0" stylesheets="@../CSS/Dashboard.css" text="Usuarios" textFill="WHITE">
+                  <TitledPane fx:id="usuarios" prefHeight="92.0" prefWidth="250.0" stylesheets="@../CSS/estilos.css" text="Usuarios" textFill="WHITE">
                      <content>
-                        <VBox prefHeight="32.0" prefWidth="248.0" styleClass="vbox-pane" stylesheets="@../CSS/Dashboard.css">
+                        <VBox prefHeight="32.0" prefWidth="248.0" styleClass="vbox-pane" stylesheets="@../CSS/estilos.css">
                            <children>
-                              <Button fx:id="bot_PanelUsuario" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#PanelUsuarioAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/Dashboard.css" text="Panel de Usuarios">
+                              <Button id="botones-dashboard" fx:id="bot_PanelUsuario" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#PanelUsuarioAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/estilos.css" text="Panel de Usuarios">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></Button>
@@ -59,11 +59,11 @@
                            </image></ImageView>
                      </graphic>
                   </TitledPane>
-                <TitledPane fx:id="prestamos" prefHeight="68.0" prefWidth="204.0" stylesheets="@../CSS/Dashboard.css" text="Prestamos" textFill="WHITE">
+                <TitledPane fx:id="prestamos" prefHeight="68.0" prefWidth="204.0" stylesheets="@../CSS/estilos.css" text="Prestamos" textFill="WHITE">
                      <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/Dashboard.css">
+                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/estilos.css">
                            <children>
-                              <Button fx:id="bot_crearprestamo" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#CrearPrestamoAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/Dashboard.css" text="Crear Prestamo">
+                              <Button id="botones-dashboard" fx:id="bot_crearprestamo" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#CrearPrestamoAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/estilos.css" text="Crear Prestamo">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></Button>
@@ -76,11 +76,11 @@
                            </image></ImageView>
                      </graphic>
                 </TitledPane>
-                <TitledPane fx:id="devoluciones" prefHeight="95.0" prefWidth="204.0" stylesheets="@../CSS/Dashboard.css" text="Devoluciones" textFill="WHITE">
+                <TitledPane fx:id="devoluciones" prefHeight="95.0" prefWidth="204.0" stylesheets="@../CSS/estilos.css" text="Devoluciones" textFill="WHITE">
                      <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/Dashboard.css">
+                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/estilos.css">
                            <children>
-                              <Button fx:id="bot_creardevolucion" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#CrearDevolucionAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/Dashboard.css" text="Crear devolucion">
+                              <Button id="botones-dashboard" fx:id="bot_creardevolucion" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#CrearDevolucionAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/estilos.css" text="Crear devolucion">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></Button>
@@ -93,11 +93,11 @@
                            </image></ImageView>
                      </graphic>
                 </TitledPane>
-                  <TitledPane fx:id="perfil" layoutX="10.0" layoutY="210.0" prefHeight="95.0" prefWidth="204.0" stylesheets="@../CSS/Dashboard.css" text="Perfil" textFill="WHITE">
+                  <TitledPane fx:id="perfil" layoutX="10.0" layoutY="210.0" prefHeight="95.0" prefWidth="204.0" stylesheets="@../CSS/estilos.css" text="Perfil" textFill="WHITE">
                      <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/Dashboard.css">
+                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/estilos.css">
                            <children>
-                              <Button fx:id="GestionPerfiles" alignment="BOTTOM_LEFT" contentDisplay="CENTER" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#PanelPerifilesAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/Dashboard.css" text="Gestion de perfiles">
+                              <Button id="botones-dashboard" fx:id="GestionPerfiles" alignment="BOTTOM_LEFT" contentDisplay="CENTER" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" onAction="#PanelPerifilesAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/estilos.css" text="Gestion de perfiles">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></Button>
@@ -111,11 +111,11 @@
                            </image></ImageView>
                      </graphic>
                   </TitledPane>
-                <TitledPane fx:id="libros" prefHeight="149.0" prefWidth="270.0" stylesheets="@../CSS/Dashboard.css" text="Libros" textFill="WHITE">
+                <TitledPane fx:id="libros" prefHeight="149.0" prefWidth="270.0" stylesheets="@../CSS/estilos.css" text="Libros" textFill="WHITE">
                      <content>
-                        <VBox prefHeight="129.0" prefWidth="268.0" styleClass="vbox-pane" stylesheets="@../CSS/Dashboard.css">
+                        <VBox prefHeight="129.0" prefWidth="268.0" styleClass="vbox-pane" stylesheets="@../CSS/estilos.css">
                            <children>
-                              <Button fx:id="bot_panelLibros" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#PanelLibrosAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/Dashboard.css" text="Panel de Libros">
+                              <Button id="botones-dashboard" fx:id="bot_panelLibros" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#PanelLibrosAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/estilos.css" text="Panel de Libros">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></Button>
@@ -128,11 +128,11 @@
                            </image></ImageView>
                      </graphic>
                 </TitledPane>
-                  <TitledPane fx:id="informes" prefHeight="95.0" prefWidth="204.0" stylesheets="@../CSS/Dashboard.css" text="Informes" textFill="WHITE">
+                  <TitledPane fx:id="informes" prefHeight="95.0" prefWidth="204.0" stylesheets="@../CSS/estilos.css" text="Informes" textFill="WHITE">
                      <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/Dashboard.css">
+                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/estilos.css">
                            <children>
-                              <Button fx:id="bot_panelInformes" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#PanelLibrosAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/Dashboard.css" text="Panel de informes">
+                              <Button id="botones-dashboard" fx:id="bot_panelInformes" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#InformesAction" prefHeight="50.0" prefWidth="253.0" stylesheets="@../CSS/estilos.css" text="Panel de informes">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -148,7 +148,7 @@
                   </TitledPane>
               </panes>
             </Accordion>
-            <Button fx:id="bot_cerrarSecion" alignment="BOTTOM_LEFT" layoutY="491.0" mnemonicParsing="false" onAction="#CerrarSesionAction" prefHeight="50.0" prefWidth="270.0" styleClass="flat-button" stylesheets="@../CSS/Dashboard.css" text="Cerrar Sesion" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="541.0">
+            <Button id="botones-dashboard" fx:id="bot_cerrarSecion" alignment="BOTTOM_LEFT" layoutY="491.0" mnemonicParsing="false" onAction="#CerrarSesionAction" prefHeight="50.0" prefWidth="270.0" stylesheets="@../CSS/estilos.css" text="Cerrar Sesion" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="541.0">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>

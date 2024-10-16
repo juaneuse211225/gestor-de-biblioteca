@@ -11,7 +11,13 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceException;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DAOPrestamo {
 
@@ -80,7 +86,7 @@ public class DAOPrestamo {
 
     public Prestamo EncontrarPrestamoActivoOMoraPorUsuario(Cuenta idUsuario) {
         try {
-            TypedQuery<Prestamo> query = em.createQuery("SELECT p FROM Prestamo p WHERE p.id_cuenta = :id_cuenta AND (p.estado_prestamo = 'ACTIVO' OR p.estado_prestamo = 'MORA')", Prestamo.class);
+            TypedQuery<Prestamo> query = em.createQuery("SELECT p FROM Prestamo p WHERE p.id_cuenta = :id_cuenta AND (p.estado_prestamo = 'ACTIVO' OR p.estado_prestamo = 'EN_MORA')", Prestamo.class);
 
             query.setParameter("id_cuenta", idUsuario);
             return query.getSingleResult();
@@ -88,14 +94,55 @@ public class DAOPrestamo {
             return null; // No hay préstamos activos o en mora
         }
     }
-    
-    public List<Prestamo> EncontrarPrestamosActivos(){
-        try{
-          TypedQuery<Prestamo> query = em.createQuery("SELECT p FROM Prestamo p WHERE p.estado_prestamo = 'ACTIVO'", Prestamo.class);
-          return query.getResultList();
-        }catch(PersistenceException e){
+
+    public List<Prestamo> EncontrarPrestamosActivos() {
+        try {
+            TypedQuery<Prestamo> query = em.createQuery("SELECT p FROM Prestamo p WHERE p.estado_prestamo = 'ACTIVO'", Prestamo.class);
+            return query.getResultList();
+        } catch (PersistenceException e) {
             System.out.println("algo paso");
             return null;
+        }
+    }
+
+    public Map<Month, List<Prestamo>> obtenerPrestamosEntreFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
+        // Validar las fechas
+        if (fechaInicial.isAfter(fechaFinal)) {
+            throw new IllegalArgumentException("La fecha inicial no puede ser posterior a la fecha final.");
+        }
+
+        String jpql = "SELECT p FROM Prestamo p "
+                + "WHERE p.fecha_inicio_prestamo BETWEEN :fechaInicial AND :fechaFinal "
+                + "ORDER BY p.fecha_inicio_prestamo ASC";
+
+        Query query = em.createQuery(jpql);
+        query.setParameter("fechaInicial", fechaInicial);
+        query.setParameter("fechaFinal", fechaFinal);
+
+        // Ejecutar la consulta y obtener los resultados
+        List<Prestamo> prestamos = query.getResultList();
+        Map<Month, List<Prestamo>> prestamosPorMes = new HashMap<>();
+
+        // Agrupar préstamos por mes
+        for (Prestamo prestamo : prestamos) {
+            LocalDate fechaPrestamo = prestamo.getFecha_inicio_prestamo(); // Asegúrate de que este método devuelva LocalDate
+            Month mes = fechaPrestamo.getMonth();
+
+            // Agregar préstamo al mapa
+            prestamosPorMes.putIfAbsent(mes, new ArrayList<>());
+            prestamosPorMes.get(mes).add(prestamo);
+        }
+
+        return prestamosPorMes;
+    }
+
+    public List<Prestamo> EncontrarPrestamoMora() {
+        try {
+            TypedQuery<Prestamo> query = em.createQuery("SELECT p FROM Prestamo p WHERE p.estado_prestamo = 'EN_MORA'", Prestamo.class);
+
+            return query.getResultList();
+        } catch (NoResultException e) {
+            return null; // No hay préstamos activos o en mora
         }
     }
 }

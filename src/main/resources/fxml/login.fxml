@@ -27,13 +27,13 @@
    <right>
       <AnchorPane fx:id="panel1" maxHeight="503.0" maxWidth="322.0" prefHeight="503.0" prefWidth="322.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="Bot_Entrar" defaultButton="true" layoutX="114.0" layoutY="311.0" mnemonicParsing="false" onAction="#ActionEntrar" styleClass="flat-button" stylesheets="@../CSS/Login.css" text="Entrar">
+            <Button id="boton" fx:id="Bot_Entrar" defaultButton="true" layoutX="114.0" layoutY="311.0" mnemonicParsing="false" onAction="#ActionEntrar" stylesheets="@../CSS/estilos.css" text="Entrar">
                <font>
                   <Font size="17.0" />
                </font>
             </Button>
-            <PasswordField fx:id="ContraField" layoutX="51.0" layoutY="253.0" prefHeight="24.0" prefWidth="220.0" promptText="Contraseña" stylesheets="@../CSS/Login.css" />
-            <TextField fx:id="IdentificacionField" layoutX="51.0" layoutY="204.0" prefHeight="24.0" prefWidth="220.0" promptText="Numero de identificacion" stylesheets="@../CSS/Login.css" />
+            <PasswordField id="flat-textfild" fx:id="ContraField" layoutX="51.0" layoutY="253.0" prefHeight="24.0" prefWidth="220.0" promptText="Contraseña" stylesheets="@../CSS/estilos.css" />
+            <TextField id="flat-textfild" fx:id="IdentificacionField" layoutX="51.0" layoutY="204.0" prefHeight="24.0" prefWidth="220.0" promptText="Numero de identificacion" stylesheets="@../CSS/estilos.css" />
             <Label layoutX="1.0" layoutY="100.0" prefHeight="95.0" prefWidth="321.0" text="Acceso al Gestor de Bilioteca" textAlignment="CENTER" textFill="#14919b" textOverrun="CLIP" wrapText="true">
                <font>
                   <Font name="System Bold" size="32.0" />
@@ -46,7 +46,7 @@
    <top>
       <Pane fx:id="panel_superior" onMouseDragged="#DejarVentana" onMousePressed="#MoverPressed" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="bot_cerrar" layoutX="553.0" mnemonicParsing="false" onAction="#CerrarAction" prefHeight="40.0" prefWidth="40.0" styleClass="cerrar-button" stylesheets="@../CSS/Styles2.css" text="X">
+            <Button fx:id="bot_cerrar" layoutX="553.0" mnemonicParsing="false" onAction="#CerrarAction" prefHeight="40.0" prefWidth="40.0" styleClass="cerrar-button" stylesheets="@../CSS/estilos.css" text="X">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

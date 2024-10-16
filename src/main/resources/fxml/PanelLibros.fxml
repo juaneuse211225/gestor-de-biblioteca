@@ -14,9 +14,9 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="930.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tecno.biblioteca.controller.PanelLibrosController">
    <top>
-      <Pane prefHeight="100.0" prefWidth="200.0" styleClass="title_pane" stylesheets="@../CSS/panelLibros.css" BorderPane.alignment="CENTER">
+      <Pane id="titulo-panel" prefHeight="100.0" prefWidth="200.0" stylesheets="@../CSS/estilos.css" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="14.0" layoutY="30.0" prefHeight="40.0" prefWidth="501.0" stylesheets="@../CSS/panelLibros.css" text="Panel de libros" textFill="WHITE">
+            <Label id="titulo" layoutX="14.0" layoutY="30.0" prefHeight="40.0" prefWidth="501.0" stylesheets="@../CSS/estilos.css" text="Panel de libros" textFill="WHITE">
                <font>
                   <Font size="30.0" />
                </font>
@@ -29,7 +29,7 @@
          <children>
             <ScrollPane layoutY="303.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="15.0">
                <content>
-                  <TableView fx:id="tabla_libros" prefHeight="388.0" prefWidth="908.0" stylesheets="@../CSS/panelLibros.css" tableMenuButtonVisible="true">
+                  <TableView id="tabla" fx:id="tabla_libros" prefHeight="388.0" prefWidth="908.0" stylesheets="@../CSS/estilos.css" tableMenuButtonVisible="true">
                     <columns>
                         <TableColumn fx:id="Column_isbn" editable="false" prefWidth="65.0" text="ISBN" />
                         <TableColumn fx:id="Column_titulo" editable="false" prefWidth="153.0" text="TITULO" />
@@ -45,10 +45,10 @@
                   </TableView>
                </content>
             </ScrollPane>
-            <Button fx:id="bot_añadir" layoutX="34.0" layoutY="428.0" mnemonicParsing="false" onAction="#añadirAction" prefHeight="50.0" styleClass="flat-button" stylesheets="@../CSS/panelLibros.css" text="Añadir" />
-            <Button fx:id="bot_eliminar" layoutX="156.0" layoutY="428.0" mnemonicParsing="false" onAction="#EliminarAction" prefHeight="50.0" styleClass="flat-button" stylesheets="@../CSS/panelLibros.css" text="Eliminar" />
-            <TextField fx:id="text_busqueda" layoutX="288.0" layoutY="438.0" prefHeight="30.0" prefWidth="378.0" promptText="Buscar Libro" stylesheets="@../CSS/panelLibros.css" />
-            <ComboBox fx:id="filtro_combo" layoutX="673.0" layoutY="438.0" prefHeight="30.0" prefWidth="217.0" promptText="Filtro" stylesheets="@../CSS/panelLibros.css" />
+            <Button id="boton" fx:id="bot_añadir" layoutX="34.0" layoutY="428.0" mnemonicParsing="false" onAction="#añadirAction" prefHeight="50.0" stylesheets="@../CSS/estilos.css" text="Añadir" />
+            <Button id="boton" fx:id="bot_eliminar" layoutX="156.0" layoutY="428.0" mnemonicParsing="false" onAction="#EliminarAction" prefHeight="50.0" stylesheets="@../CSS/estilos.css" text="Eliminar" />
+            <TextField id="flat-textfild" fx:id="text_busqueda" layoutX="288.0" layoutY="438.0" prefHeight="30.0" prefWidth="378.0" promptText="Buscar Libro" stylesheets="@../CSS/estilos.css" />
+            <ComboBox id="combo" fx:id="filtro_combo" layoutX="673.0" layoutY="438.0" prefHeight="30.0" prefWidth="217.0" promptText="Filtro" stylesheets="@../CSS/estilos.css" />
          </children>
       </AnchorPane>
    </center>

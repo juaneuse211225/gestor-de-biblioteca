@@ -72,7 +72,7 @@ public class GestorController {
 
     @FXML
     private TitledPane usuarios;
-    BorderPane panelLibro, panelUsuario, panelcrearPrestamo, panelcrearDevolucion;
+    BorderPane panelLibro, panelUsuario, panelcrearPrestamo, panelcrearDevolucion, panelinformes;
 
     @FXML
     public void initialize() {
@@ -81,7 +81,8 @@ public class GestorController {
             panelLibro = FXMLLoader.load(getClass().getResource("/fxml/PanelLibros.fxml"));
             panelcrearPrestamo = FXMLLoader.load(getClass().getResource("/fxml/crearprestamo.fxml"));
             panelcrearDevolucion = FXMLLoader.load(getClass().getResource("/fxml/panelDevolucion.fxml"));
-            Panel_Stack.getChildren().addAll(panelUsuario, panelLibro, panelcrearPrestamo,  panelcrearDevolucion);
+            panelinformes = FXMLLoader.load(getClass().getResource("/fxml/informe.fxml"));
+            Panel_Stack.getChildren().addAll(panelUsuario, panelLibro, panelcrearPrestamo, panelinformes, panelcrearDevolucion);
 
             mostrarPanel(Panel_Stack, panelUsuario);
 
@@ -181,5 +182,10 @@ public class GestorController {
         }
     
     }
-
+    
+     @FXML
+    void InformesAction(ActionEvent event) {
+         mostrarPanel(Panel_Stack, panelinformes);
+    }
+    
 }
