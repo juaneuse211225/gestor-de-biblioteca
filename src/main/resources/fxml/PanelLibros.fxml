@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="930.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tecno.gestor.biblioteca.controller.PanelLibrosController">
+   <top>
+      <Pane id="titulo-panel" prefHeight="100.0" prefWidth="200.0" stylesheets="@../CSS/estilos.css" BorderPane.alignment="CENTER">
+         <children>
+            <Label id="titulo" layoutX="14.0" layoutY="30.0" prefHeight="40.0" prefWidth="226.0" stylesheets="@../CSS/estilos.css" text="Panel de libros" textFill="WHITE">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </top>
+   <center>
+      <AnchorPane prefHeight="455.0" prefWidth="728.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+         <children>
+            <TableView id="tabla" fx:id="tabla_libros" prefHeight="388.0" prefWidth="908.0" stylesheets="@../CSS/estilos.css" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="15.0">
+              <columns>
+                  <TableColumn fx:id="Column_isbn" editable="false" prefWidth="65.0" text="ISBN" />
+                  <TableColumn fx:id="Column_titulo" editable="false" prefWidth="153.0" text="TITULO" />
+                  <TableColumn fx:id="Column_autor" editable="false" prefWidth="153.0" text="AUTOR" />
+                <TableColumn fx:id="Column_categoria" editable="false" prefWidth="134.0" text="CATEGORIA" />
+                  <TableColumn fx:id="Column_disponibles" editable="false" prefWidth="147.0" text="DISPONIBLES" />
+                  <TableColumn fx:id="Column_totales" prefWidth="75.0" text="TOTALES" />
+                <TableColumn fx:id="Column_ubicacion" editable="false" prefWidth="75.0" text="UBICACION" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <Button id="boton" fx:id="bot_añadir" layoutX="34.0" layoutY="428.0" mnemonicParsing="false" onAction="#añadirAction" prefHeight="50.0" prefWidth="108.0" stylesheets="@../CSS/estilos.css" text="AÑADIR" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
+            <Button id="boton" fx:id="bot_eliminar" layoutX="131.0" layoutY="444.0" mnemonicParsing="false" onAction="#EliminarAction" prefHeight="50.0" prefWidth="124.0" stylesheets="@../CSS/estilos.css" text="ELIMINAR" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="133.0" />
+            <TextField id="flat-textfild" fx:id="text_busqueda" layoutX="288.0" layoutY="438.0" prefHeight="30.0" prefWidth="410.0" promptText="Buscar Libro" stylesheets="@../CSS/estilos.css" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="299.0" AnchorPane.rightAnchor="221.0" />
+            <ComboBox id="combo" fx:id="filtro_combo" layoutX="699.0" layoutY="454.0" prefHeight="30.0" prefWidth="181.0" promptText="Filtro" stylesheets="@../CSS/estilos.css" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="10.0" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tecno.gestor.biblioteca.controller.GestorController">
+   <top>
+      <Pane prefHeight="45.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="boton_cerrar" layoutX="1148.0" layoutY="-2.0" mnemonicParsing="false" onAction="#Cerrar_Action" prefHeight="50.0" prefWidth="50.0" styleClass="cerrar-button" stylesheets="@../CSS/estilos.css" text="X">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Button>
+            <Label fx:id="panel_superior" alignment="BASELINE_CENTER" contentDisplay="CENTER" layoutY="-1.0" onMouseDragged="#DejarVentana" onMousePressed="#MoverPressed" prefHeight="46.0" prefWidth="1150.0" text="GESTOR DE BIBLIOTECA" textAlignment="CENTER" textFill="#5186a4" textOverrun="CLIP">
+               <font>
+                  <Font name="Ubuntu Bold" size="29.0" />
+               </font>
+               <padding>
+                  <Insets left="110.0" />
+               </padding>
+            </Label>
+         </children>
+      </Pane>
+   </top>
+   <center>
+      <StackPane fx:id="Panel_Stack" prefHeight="605.0" prefWidth="930.0" BorderPane.alignment="CENTER" />
+   </center>
+   <left>
+      <AnchorPane prefHeight="605.0" prefWidth="270.0" style="-fx-background-color: #1abbc8;" BorderPane.alignment="CENTER">
+         <children>
+            <Accordion prefHeight="320.0" prefWidth="270.0">
+              <panes>
+                  <TitledPane fx:id="usuarios" prefHeight="92.0" prefWidth="250.0" stylesheets="@../CSS/estilos.css" text="Usuarios" textFill="WHITE">
+                     <content>
+                        <VBox prefHeight="32.0" prefWidth="248.0" styleClass="vbox-pane" stylesheets="@../CSS/estilos.css">
+                           <children>
+                              <Button id="botones-dashboard" fx:id="bot_PanelUsuario" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#PanelUsuarioAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/estilos.css" text="Panel de Usuarios">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                           </children></VBox>
+                     </content>
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/usuario.png" />
+                           </image></ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </TitledPane>
+                <TitledPane fx:id="prestamos" prefHeight="68.0" prefWidth="204.0" stylesheets="@../CSS/estilos.css" text="Prestamos" textFill="WHITE">
+                     <content>
+                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/estilos.css">
+                           <children>
+                              <Button id="botones-dashboard" fx:id="bot_crearprestamo" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#CrearPrestamoAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/estilos.css" text="Crear Prestamo">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                           </children></VBox>
+                     </content>
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/prestamo.png" />
+                           </image></ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                </TitledPane>
+                <TitledPane fx:id="devoluciones" prefHeight="95.0" prefWidth="204.0" stylesheets="@../CSS/estilos.css" text="Devoluciones" textFill="WHITE">
+                     <content>
+                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/estilos.css">
+                           <children>
+                              <Button id="botones-dashboard" fx:id="bot_creardevolucion" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#CrearDevolucionAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/estilos.css" text="Crear devolucion">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                           </children></VBox>
+                     </content>
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/devolucion.png" />
+                           </image></ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                </TitledPane>
+                <TitledPane fx:id="libros" prefHeight="149.0" prefWidth="270.0" stylesheets="@../CSS/estilos.css" text="Libros" textFill="WHITE">
+                     <content>
+                        <VBox prefHeight="129.0" prefWidth="268.0" styleClass="vbox-pane" stylesheets="@../CSS/estilos.css">
+                           <children>
+                              <Button id="botones-dashboard" fx:id="bot_panelLibros" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#PanelLibrosAction" prefHeight="50.0" prefWidth="253.0" styleClass="flat-button" stylesheets="@../CSS/estilos.css" text="Panel de Libros">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                           </children></VBox>
+                     </content>
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/libros.png" />
+                           </image></ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                </TitledPane>
+                  <TitledPane fx:id="informes" prefHeight="95.0" prefWidth="204.0" stylesheets="@../CSS/estilos.css" text="Informes" textFill="WHITE">
+                     <content>
+                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="vbox-pane" stylesheets="@../CSS/estilos.css">
+                           <children>
+                              <Button id="botones-dashboard" fx:id="bot_panelInformes" alignment="BOTTOM_LEFT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#InformesAction" prefHeight="50.0" prefWidth="253.0" stylesheets="@../CSS/estilos.css" text="Panel de informes">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children></VBox>
+                     </content>
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/info.png" />
+                           </image></ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </TitledPane>
+              </panes>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Accordion>
+            <Button id="botones-dashboard" fx:id="bot_cerrarSecion" alignment="BOTTOM_LEFT" layoutY="491.0" mnemonicParsing="false" onAction="#CerrarSesionAction" prefHeight="50.0" prefWidth="270.0" stylesheets="@../CSS/estilos.css" text="Salir" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="541.0">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/cerrarsesion.png" />
+                     </image></ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+         </children>
+      </AnchorPane>
+   </left>
+</BorderPane>
