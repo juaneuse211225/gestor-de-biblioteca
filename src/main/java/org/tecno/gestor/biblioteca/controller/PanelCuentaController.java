@@ -1,7 +1,5 @@
 package org.tecno.gestor.biblioteca.controller;
 
-import org.tecno.gestor.biblioteca.model.Cuenta;
-import org.tecno.gestor.biblioteca.service.LibraryService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -16,9 +14,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.tecno.gestor.biblioteca.enums.TipoCuenta;
+import org.tecno.gestor.biblioteca.model.Cuenta;
+import org.tecno.gestor.biblioteca.service.LibraryService;
 
-public class PanelUsuarioController {
-
+public class PanelCuentaController {
+    
+    FilteredList<Cuenta> FiltroDatos;
     private LibraryService ls = new LibraryService();
 
     ObservableList<Cuenta> cuentas = FXCollections.observableArrayList();
@@ -39,26 +41,24 @@ public class PanelUsuarioController {
     private TableColumn<Cuenta, String> column_correo;
 
     @FXML
-    private TableColumn<Cuenta, String> column_id;
+    private TableColumn<Cuenta, Long> column_id;
 
     @FXML
     private TableColumn<Cuenta, String> column_nombre;
 
     @FXML
-    private TableColumn<Cuenta, String> column_estado;
-
-    @FXML
     private TableColumn<Cuenta, String> column_telefono;
 
     @FXML
-    private TextField text_busqueda;
+    private TableColumn<Cuenta, TipoCuenta> column_tipo;
 
     @FXML
     private ComboBox<String> combo_filtro;
 
-    FilteredList<Cuenta> FiltroDatos;
-
     @FXML
+    private TextField text_busqueda;
+    
+     @FXML
     public void initialize() {
 
         TablaUsuarios.setRowFactory(tv -> {
@@ -77,11 +77,11 @@ public class PanelUsuarioController {
 
         });
         combo_filtro.setItems(FXCollections.observableArrayList(
-                "nombre", "apellido", "estado de cuenta", "id"
+                "nombre", "apellido", "tipo de cuenta", "id"
         ));
         combo_filtro.setValue("nombre");
 
-        FiltroDatos = new FilteredList<Cuenta>(cuentas, c -> true);
+        FiltroDatos = new FilteredList<>(cuentas, c -> true);
         text_busqueda.textProperty().addListener((observable, viejo, nuevo) -> aplicarFiltro(nuevo));
         combo_filtro.valueProperty().addListener((observable, viejo, nuevo) -> aplicarFiltro(text_busqueda.getText()));
         column_id.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -89,11 +89,11 @@ public class PanelUsuarioController {
         column_apellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
         column_correo.setCellValueFactory(new PropertyValueFactory<>("correo"));
         column_telefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-        column_estado.setCellValueFactory(new PropertyValueFactory<>("estado_cuenta"));
+        column_tipo.setCellValueFactory(new PropertyValueFactory<>("tipo_cuenta"));
 
         CargarDatosEnTabla();
     }
-
+    
     private void aplicarFiltro(String textoBusqueda) {
         String filtroSeleccionado = combo_filtro.getValue().toLowerCase();
 
@@ -111,8 +111,8 @@ public class PanelUsuarioController {
                     Cuenta.getNombre().toLowerCase().contains(textoFiltro);
                 case "apellido" ->
                     Cuenta.getApellido().toLowerCase().contains(textoFiltro);
-                case "estado de cuenta" ->
-                    Cuenta.getEstado_cuenta().name().toLowerCase().contains(textoFiltro);
+                case "tipo de cuenta" ->
+                    Cuenta.getTipo_cuenta().name().toLowerCase().contains(textoFiltro);
                 case "id" ->
                     Long.toString(Cuenta.getId()).contains(textoFiltro);
                 default ->
@@ -134,38 +134,15 @@ public class PanelUsuarioController {
             alert.setContentText("Selecciona un usario para eliminarlo");
             alert.showAndWait();
         }
-
     }
 
     @FXML
     void GuardarAction(ActionEvent event) {
         VentanaModal();
         CargarDatosEnTabla();
+        
     }
-
-    public void VentanaModal() {
-        Stage gestorStage = (Stage) bot_guardar.getScene().getWindow();
-        AdministradorVentanaUsuario adminModal = new AdministradorVentanaUsuario(gestorStage);
-
-        adminModal.mostrarModal("Registrar usuario", controller -> {
-            controller.setTitulo_text("Registrar usuario");
-            controller.setVentana(1);
-        });
-        CargarDatosEnTabla();
-    }
-
-    public void VentanaModal(Cuenta cuenta) {
-        Stage gestorStage = (Stage) bot_guardar.getScene().getWindow();
-        AdministradorVentanaUsuario adminModal = new AdministradorVentanaUsuario(gestorStage);
-
-        adminModal.mostrarModal("Editar usuario", controller -> {
-            controller.setTitulo_text("Editar usuario");
-            controller.setCuenta(cuenta);
-            controller.setVentana(1);
-        });
-        CargarDatosEnTabla();
-    }
-
+    
     public Cuenta ObtenerSeleccion() {
         Cuenta seleccion = TablaUsuarios.getSelectionModel().getSelectedItem();
         if (seleccion != null) {
@@ -174,16 +151,39 @@ public class PanelUsuarioController {
         }
         return null;
     }
-
+    
     public void CargarDatosEnTabla() {
         cuentas.clear();
-        cuentas.addAll(ls.Encontrar_Usuarios());
+        cuentas.addAll(ls.Encontrar_Admin());
         TablaUsuarios.setItems(FiltroDatos);
     }
 
     private void handleDobleClick(Cuenta DatosFila) {
-
         VentanaModal(DatosFila);
 
     }
+    
+    public void VentanaModal() {
+        Stage gestorStage = (Stage) bot_guardar.getScene().getWindow();
+        AdministradorVentanaUsuario adminModal = new AdministradorVentanaUsuario(gestorStage);
+
+        adminModal.mostrarModal("Registrar cuenta", controller -> {
+            controller.setTitulo_text("Registrar cuenta");
+            controller.setVentana(2);
+        });
+        CargarDatosEnTabla();
+    }
+
+    public void VentanaModal(Cuenta cuenta) {
+        Stage gestorStage = (Stage) bot_guardar.getScene().getWindow();
+        AdministradorVentanaUsuario adminModal = new AdministradorVentanaUsuario(gestorStage);
+
+        adminModal.mostrarModal("Editar cuenta", controller -> {
+            controller.setTitulo_text("Editar cuenta");
+            controller.setCuenta(cuenta);
+            controller.setVentana(2);
+        });
+        CargarDatosEnTabla();
+    }
+
 }

@@ -6,6 +6,7 @@ import org.tecno.gestor.biblioteca.model.Cuenta;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 
 import java.util.List;
 
@@ -24,6 +25,15 @@ public class DAOLibro {
     public DAOLibro(EntityManager em) {
         this.em = em;
 
+    }
+    
+    public boolean ExisteID(long id) {
+        Libro libro = em.find(Libro.class, id);
+            if(libro != null){
+                return true;
+            }else{
+                return false;
+            }
     }
 
     public void create(Libro lib) {
@@ -105,5 +115,16 @@ public class DAOLibro {
             }
             throw new RuntimeException("Error al refrescar", e);
         }
+    }
+    public List<Libro> EncontrarActivos() {
+        TypedQuery<Libro> query = em.createQuery("SELECT l FROM Libro l WHERE l.estado_libro = :estado", Libro.class);
+        query.setParameter("estado", EstadoLibro.ACTIVO);
+        List<Libro> listas = query.getResultList();
+        for (Libro libro : listas) {
+            em.refresh(libro);
+
+        }
+
+        return listas;
     }
 }

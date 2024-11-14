@@ -4,7 +4,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,14 +12,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="494.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tecno.gestor.biblioteca.controller.CrearLibroController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="494.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.tecno.gestor.biblioteca.controller.CrearLibroController">
    <center>
-      <AnchorPane prefHeight="505.0" prefWidth="673.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="441.0" prefWidth="494.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
          <children>
-            <TextField id="flat-textfild" fx:id="text_isbn" layoutX="14.0" layoutY="34.0" prefHeight="30.0" prefWidth="200.0" promptText="Ingresa el ISBN" styleClass="field" stylesheets="@../CSS/estilos.css" AnchorPane.leftAnchor="10.0" />
+            <TextField id="flat-textfild" fx:id="text_isbn" layoutX="14.0" layoutY="34.0" prefHeight="30.0" prefWidth="213.0" promptText="Ingresa el ISBN" styleClass="field" stylesheets="@../CSS/estilos.css" AnchorPane.leftAnchor="10.0" />
             <TextField id="flat-textfild" fx:id="text_autor" layoutX="14.0" layoutY="172.0" prefHeight="30.0" prefWidth="464.0" promptText="Autor(a) del libro" styleClass="field" stylesheets="@../CSS/estilos.css" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
             <TextField id="flat-textfild" fx:id="text_titulo" layoutX="14.0" layoutY="100.0" prefHeight="30.0" prefWidth="464.0" promptText="Titulo del libro" styleClass="field" stylesheets="@../CSS/estilos.css" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-            <TextArea id="area" fx:id="text_ubicacion" layoutX="10.0" layoutY="325.0" prefHeight="77.0" prefWidth="473.0" promptText="Ingresa la ubicacion de donde se encuentra el libro" stylesheets="@../CSS/estilos.css" wrapText="true" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
             <Label id="etiqueta" layoutX="14.0" layoutY="14.0" stylesheets="@../CSS/estilos.css" text="ISBN:" AnchorPane.leftAnchor="10.0" />
             <Label id="etiqueta" layoutX="14.0" layoutY="78.0" stylesheets="@../CSS/estilos.css" text="Titulo:" AnchorPane.leftAnchor="10.0" />
             <Label id="etiqueta" layoutX="14.0" layoutY="148.0" stylesheets="@../CSS/estilos.css" text="Autor:" AnchorPane.leftAnchor="10.0" />
@@ -40,17 +39,23 @@
                <graphic>
                   <Pane fx:id="NuevaCategoria" disable="true" prefHeight="65.0" prefWidth="200.0">
                      <children>
-                        <TextField id="flat-textfild" fx:id="text_nuevacategoria" layoutX="15.0" layoutY="30.0" prefHeight="30.0" prefWidth="176.0" promptText="Nueva categoria" styleClass="field" stylesheets="@../CSS/estilos.css" />
-                        <Label id="etiqueta" layoutX="14.0" layoutY="6.0" stylesheets="@../CSS/estilos.css" text="Nueva categoria:" />
+                        <TextField id="flat-textfild" fx:id="text_nuevacategoria" layoutX="11.0" layoutY="31.0" prefHeight="30.0" prefWidth="195.0" promptText="Nueva categoria" styleClass="field" stylesheets="@../CSS/estilos.css" />
+                        <Label id="etiqueta" layoutX="11.0" layoutY="14.0" stylesheets="@../CSS/estilos.css" text="Nueva categoria:" />
                      </children>
                   </Pane>
                </graphic>
             </RadioButton>
             <Label id="etiqueta" layoutX="240.0" layoutY="14.0" stylesheets="@../CSS/estilos.css" text="Cantidad de ejemplares:" AnchorPane.rightAnchor="94.0" />
             <Label id="etiqueta" layoutX="10.0" layoutY="309.0" stylesheets="@../CSS/estilos.css" text="Ubicacion:" AnchorPane.leftAnchor="10.0" />
-            <Button id="boton-aceptar" fx:id="bot_añadir" defaultButton="true" layoutX="13.0" layoutY="445.0" mnemonicParsing="false" onAction="#AñadirAction" stylesheets="@../CSS/estilos.css" text="AÑADIR" AnchorPane.leftAnchor="10.0" />
-            <Button id="boton-cancelar" fx:id="bot_cancelar" cancelButton="true" layoutX="114.0" layoutY="445.0" mnemonicParsing="false" onAction="#AncelarAction" stylesheets="@../CSS/estilos.css" text="CANCELAR" />
+            <Button id="boton-aceptar" fx:id="bot_añadir" defaultButton="true" layoutX="8.0" layoutY="398.0" mnemonicParsing="false" onAction="#AñadirAction" stylesheets="@../CSS/estilos.css" text="AÑADIR" AnchorPane.leftAnchor="8.0" />
+            <Button id="boton-cancelar" fx:id="bot_cancelar" cancelButton="true" layoutX="112.0" layoutY="398.0" mnemonicParsing="false" onAction="#AncelarAction" stylesheets="@../CSS/estilos.css" text="CANCELAR" />
             <TextField id="flat-textfild" fx:id="text_ejemplares_total" layoutX="234.0" layoutY="34.0" prefHeight="30.0" prefWidth="244.0" promptText="Cantidad de ejemplares" styleClass="field" stylesheets="@../CSS/estilos.css" AnchorPane.rightAnchor="10.0" />
+            <Spinner fx:id="spin_pasillo" layoutX="18.0" layoutY="352.0" prefHeight="24.0" prefWidth="148.0" stylesheets="@../CSS/estilos.css" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="355.0" />
+            <Spinner fx:id="spin_seccion" layoutX="367.0" layoutY="352.0" prefHeight="24.0" prefWidth="148.0" stylesheets="@../CSS/estilos.css" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="355.0" />
+            <Spinner fx:id="spin_estanteria" layoutX="173.0" layoutY="352.0" prefHeight="24.0" prefWidth="148.0" stylesheets="@../CSS/estilos.css" AnchorPane.topAnchor="355.0" />
+            <Label id="etiqueta" layoutX="10.0" layoutY="339.0" stylesheets="@../CSS/estilos.css" text="Pasillo:" AnchorPane.leftAnchor="10.0" />
+            <Label id="etiqueta" layoutX="171.0" layoutY="339.0" stylesheets="@../CSS/estilos.css" text="Estanteria:" />
+            <Label id="etiqueta" layoutX="336.0" layoutY="339.0" stylesheets="@../CSS/estilos.css" text="Sección:" />
          </children>
       </AnchorPane>
    </center>

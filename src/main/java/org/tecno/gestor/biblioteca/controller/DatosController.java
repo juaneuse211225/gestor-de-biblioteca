@@ -19,7 +19,7 @@ public class DatosController {
 
     private String titulo_text;
 
-    private TipoCuenta rolUsuarioLogueado;
+    private int tipo_ventana;
 
     @FXML
     private Button bot_cancelar;
@@ -85,8 +85,8 @@ public class DatosController {
             }
         });
 
-        combo_rol.getItems().addAll(TipoCuenta.values());
-        combo_rol.setValue(TipoCuenta.USUARIO);
+        combo_rol.getItems().addAll(TipoCuenta.BIBLIOTECARIO, TipoCuenta.ADMINISTRADOR);
+        combo_rol.setValue(TipoCuenta.BIBLIOTECARIO);
     }
 
     @FXML
@@ -99,24 +99,65 @@ public class DatosController {
     void GuardarAction(ActionEvent event) {
         LibraryService ls = new LibraryService();
 
-        if (titulo_text.equals("Registrar usuario")) {
-            if (!ComprobarCampos()) {
-                ls.Crear_Cuenta(new Cuenta(Long.parseLong(text_id.getText()), text_nombre.getText(), text_contra.getText(), text_apellido.getText(), text_correo.getText(), text_telefono.getText(), combo_rol.getValue()));
-                limpiar();
-                
-            } else {
-                mostrarAlerta("Error", "Todos los campos deben estar llenos.");
+        if (!ComprobarCampos()) {
+            switch (titulo_text) {
+                case "Registrar usuario" -> {
+                    Long id = Long.parseLong(text_id.getText());
+                    if (ls.exite_cuenta(id)) {
+                        mostrarAlerta("Cuenta existente", "El usuario con N° " + id + " ya existe");
+                    } else {
+                        ls.Crear_Cuenta(new Cuenta(id, text_nombre.getText(), text_contra.getText(), text_apellido.getText(), text_correo.getText(), text_telefono.getText(), TipoCuenta.USUARIO));
+                        limpiar();
+                    }
+                }
+                case "Editar usuario" -> {
+                    ls.Actualizar_Cuenta(new Cuenta(Long.parseLong(text_id.getText()), text_nombre.getText(), text_contra.getText(), text_apellido.getText(), text_correo.getText(), text_telefono.getText(), TipoCuenta.USUARIO));
+                    Stage stage = getStage();
+                    stage.close();
+                }
+                case "Registrar cuenta" -> {
+                    String contraseña = text_contra.getText().trim();
+                    if (contraseña.isBlank() || contraseña.length() < 8) {
+
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setHeaderText("Contraseña invalida");
+                        alert.setTitle("Contraseña invalida");
+                        alert.setContentText("Por favor ingresar una contraseña con al menos 8 carateres");
+                        alert.showAndWait();
+                    } else {
+                        Long id = Long.valueOf(text_id.getText());
+                        if(ls.exite_cuenta(id)) {
+                            mostrarAlerta("Cuenta existente", "La cuenta con N° " + id + " ya existe");
+                        } else {
+                            ls.Crear_Cuenta(new Cuenta(Long.parseLong(text_id.getText()), text_nombre.getText(), text_contra.getText(), text_apellido.getText(), text_correo.getText(), text_telefono.getText(), combo_rol.getValue()));
+                            limpiar();
+                        }
+                    }
+                }
+                case "Editar cuenta" -> {
+                    String contraseña = text_contra.getText().trim();
+                    if (contraseña.isBlank() || contraseña.length() < 8) {
+
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setHeaderText("Contraseña invalida");
+                        alert.setTitle("Contraseña invalida");
+                        alert.setContentText("Por favor ingresar una contraseña con al menos 8 carateres");
+                        alert.showAndWait();
+                    } else {
+                        long id = Long.valueOf(text_id.getText());
+                        ls.Actualizar_Cuenta(new Cuenta(id, text_nombre.getText(), text_contra.getText(), text_apellido.getText(), text_correo.getText(), text_telefono.getText(), combo_rol.getValue()));
+                        Stage stage = getStage();
+                        stage.close();
+                    }
+
+                }
+
+                default ->
+                    throw new AssertionError();
             }
         } else {
-            if (!ComprobarCampos()) {
-                ls.Actualizar_Cuenta(new Cuenta(Long.parseLong(text_id.getText()), text_nombre.getText(), text_contra.getText(), text_apellido.getText(), text_correo.getText(), text_telefono.getText(), combo_rol.getValue()));
-                Stage stage = getStage();
-                stage.close();
-            } else {
-                mostrarAlerta("Error", "Todos los campos deben estar llenos.");
-            }
+            mostrarAlerta("Error", "Todos los campos deben estar llenos.");
         }
-
     }
 
     private void mostrarAlerta(String titulo, String mensaje) {
@@ -146,7 +187,8 @@ public class DatosController {
         text_id.setText("");
         text_nombre.setText("");
         text_telefono.setText("");
-        combo_rol.setValue(TipoCuenta.USUARIO);
+        combo_rol.setValue(TipoCuenta.BIBLIOTECARIO);
+
     }
 
     public void setTitulo_text(String titulo_text) {
@@ -176,18 +218,16 @@ public class DatosController {
         text_id.setDisable(true);
     }
 
-    public void setRolUsuarioLogueado(TipoCuenta rol) {
-        this.rolUsuarioLogueado = rol;
-        ajustarComponentesSegunRol();
+    public void setVentana(int ventana) {
+        this.tipo_ventana = ventana;
+        ajustarComponentesSegunVentana();
     }
 
-    private void ajustarComponentesSegunRol() {
-        if (rolUsuarioLogueado == TipoCuenta.BIBLIOTECARIO) {
-            // Ocultar ComboBox de rol y campo de contraseña para Bibliotecario
+    private void ajustarComponentesSegunVentana() {
+        if (tipo_ventana == 1) {
             combo_rol.setVisible(false);
             text_contra.setVisible(false);
-        } else if (rolUsuarioLogueado == TipoCuenta.ADMINISTRADOR) {
-            // Mostrar ComboBox de rol y campo de contraseña para Administrador
+        } else if (tipo_ventana == 2) {
             combo_rol.setVisible(true);
             text_contra.setVisible(true);
         }

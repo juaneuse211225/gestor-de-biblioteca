@@ -1,0 +1,31 @@
+.custom-spinner {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: transparent;
+}
+
+.custom-spinner .increment-arrow-button,
+.custom-spinner .decrement-arrow-button {
+    -fx-background-color: #0b6477; /* Color de las flechas */
+}
+
+.custom-spinner .increment-arrow-button:hover,
+.custom-spinner .decrement-arrow-button:hover {
+    -fx-background-color: #084c58; /* Color al pasar el ratón por encima */
+}
+
+.custom-spinner .increment-arrow {
+    -fx-shape: "M 0 4 L 4 0 L 8 4 Z"; /* Flecha hacia arriba */
+    -fx-background-color: white; /* Color de la flecha */
+}
+
+.custom-spinner .decrement-arrow {
+    -fx-shape: "M 0 0 L 4 4 L 8 0 Z"; /* Flecha hacia abajo */
+    -fx-background-color: white; /* Color de la flecha */
+}
+
+
+.custom-spinner .text-field {
+    -fx-text-fill: #14919B;
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+}

@@ -25,7 +25,7 @@ public class AdministradorVentanaLibro {
 
     public void mostrarModal(String titulo, Consumer<Object> configurador) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/crearlibro.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/crearlibro2.fxml"));
             Parent root = loader.load();
             Object controller = loader.getController();
             configurador.accept(controller);

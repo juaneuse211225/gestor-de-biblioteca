@@ -12,11 +12,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DateCell;
@@ -85,7 +87,13 @@ public class CrearPrestamoController {
 
     @FXML
     public void initialize() {
-        //Se añade un changeListener al datepicker
+
+        Platform.runLater(() -> {
+            Scene scene = tabla_detalleprestamo.getScene();
+            if (scene != null) {
+                scene.getStylesheets().add(getClass().getResource("/CSS/spinner.css").toExternalForm());
+            }
+        });
 
         text_BuscarLibro.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
@@ -164,19 +172,29 @@ public class CrearPrestamoController {
 
     @FXML
     void GuardarAction(ActionEvent event) {
-        if (prestamo != null && !(tabla_detalleprestamo.getItems().isEmpty())) {
+        Prestamo presta; 
+        presta = crearprestamo();
+        if (presta != null) {
+            // Crear un nuevo objeto prestamo de manera local
+             // Se crea un nuevo préstamo
+            
+            ls.Crear_Prestamo(presta);  // Guardar el nuevo préstamo
+            limpiar();  // Limpiar el formulario
+            setDesactivar(true);  // Desactivar los botones
 
-            ls.Crear_Prestamo(crearprestamo());
-            limpiar();
-            setDesactivar(true);
+            // Mostrar alerta de éxito
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Préstamo registrado");
+            alert.setHeaderText("Préstamo registrado");
+            alert.setContentText("El préstamo se ha registrado de forma exitosa.");
+            alert.showAndWait();
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Ingresa los campos correspondiente");
-            alert.setHeaderText("Verifica que los campos no esten vacios");
-            alert.setContentText("Por favor verificar que toda la informacion ingresada esta completa");
+            alert.setTitle("Campos incompletos");
+            alert.setHeaderText("Verifica que los campos no estén vacíos");
+            alert.setContentText("Por favor verifica que toda la información esté completa.");
             alert.showAndWait();
         }
-
     }
 
     @FXML
@@ -225,12 +243,11 @@ public class CrearPrestamoController {
         }
 
         long id = Long.parseLong(id_usuario);
-        
 
         try {
             cuenta = ls.Encontrar_Cuenta(id);  // Buscar la cuenta
             ls.refrescarCuenta(cuenta);
-            
+
         } catch (EntityNotFoundException ex) {
             mostrarAlerta("Usuario no encontrado", "El usuario no fue encontrado en la base de datos.");
             return;
@@ -242,7 +259,6 @@ public class CrearPrestamoController {
             Nombre.setText("");
             return;
         }
-
 
         // Verificar si tiene algún préstamo activo o en mora
         Optional<Prestamo> prestamoActivo = cuenta.getId_prestamo().stream()
@@ -260,10 +276,11 @@ public class CrearPrestamoController {
 
             // Asociar el nuevo préstamo a la cuenta
             this.cuenta = cuenta;
-            
+
         }
     }
     Cuenta cuenta = new Cuenta();
+
     public boolean existeLibroEnTabla(DetallePrestamo detalle, TableView<DetallePrestamo> tableView) {
         for (DetallePrestamo d : tableView.getItems()) {
             if (d.getId_libro() == detalle.getId_libro()) {
@@ -281,17 +298,25 @@ public class CrearPrestamoController {
     }
 
     public Prestamo crearprestamo() {
-        if (!(tabla_detalleprestamo.getItems().isEmpty()) && fecha_entrega.getValue() != null && fecha_inicio.getValue() != null && !(area_descripsion.getText().trim().isEmpty())) {
-            prestamo.setEstado_prestamo(EstadoPrestamo.ACTIVO);
-            prestamo.setFecha_inicio_prestamo(fecha_inicio.getValue());
-            prestamo.setFecha_relativa_devolucion(fecha_entrega.getValue());
-            prestamo.setId_detalleprestamo(procesarDetallesPrestamo());
-//            prestamo.setDevolucion(null);
-            prestamo.setObservaciones(area_descripsion.getText().trim());
-            prestamo.setId_cuenta(cuenta);
-            cuenta.getId_prestamo().add(prestamo);
+        Prestamo nuevoPrestamo = new Prestamo();  // Se crea un nuevo préstamo local
+
+        if (!(tabla_detalleprestamo.getItems().isEmpty())
+                && fecha_entrega.getValue() != null
+                && fecha_inicio.getValue() != null
+                && !(area_descripsion.getText().trim().isEmpty())) {
+            
+            nuevoPrestamo.setEstado_prestamo(EstadoPrestamo.ACTIVO);
+            nuevoPrestamo.setFecha_inicio_prestamo(fecha_inicio.getValue());
+            nuevoPrestamo.setFecha_relativa_devolucion(fecha_entrega.getValue());
+            
+            nuevoPrestamo.setObservaciones(area_descripsion.getText().trim());
+            nuevoPrestamo.setId_cuenta(cuenta);
+            procesarDetallesPrestamo(nuevoPrestamo);
+            //nuevoPrestamo.setId_detalleprestamo(procesarDetallesPrestamo());
+            cuenta.getId_prestamo().add(nuevoPrestamo);  // Asociar el nuevo préstamo a la cuenta
         }
-        return prestamo;
+
+        return nuevoPrestamo;
     }
 
     public void CargarDatosEnTabla(DetallePrestamo detalle) {
@@ -319,7 +344,7 @@ public class CrearPrestamoController {
                     SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, libro.getLibros_disponibles());
                     spinner.setValueFactory(valueFactory);
                     spinner.getValueFactory().setValue(detalle.getEjemplares_prestados());
-
+                    spinner.getStyleClass().add("custom-spinner");
                     setGraphic(spinner);
 
                     // Listener para asegurar que el valor no sea menor que 1
@@ -335,10 +360,11 @@ public class CrearPrestamoController {
         });
     }
 
-    public List<DetallePrestamo> procesarDetallesPrestamo() {
+    public List<DetallePrestamo> procesarDetallesPrestamo(Prestamo prestamo) {
         List<DetallePrestamo> listaDetalles = new ArrayList<>();
 
         if (prestamo != null) {
+            
             // Recorre los ítems de la tabla de detalles de préstamo
             for (DetallePrestamo detalle : tabla_detalleprestamo.getItems()) {
                 int cantidadPrestar = detalle.getEjemplares_prestados() <= 1 ? 1 : detalle.getEjemplares_prestados();
@@ -347,8 +373,7 @@ public class CrearPrestamoController {
                 // Crear nuevo detalle de préstamo
                 DetallePrestamo nuevoDetalle = new DetallePrestamo();
                 nuevoDetalle.setId_libro(libro);
-                nuevoDetalle.setEjemplares_prestados(cantidadPrestar);
-                nuevoDetalle.setId_prestamo(prestamo);  // Asocia el préstamo actual
+                nuevoDetalle.setEjemplares_prestados(cantidadPrestar); // Asocia el préstamo actual
 
                 // Actualizar libros disponibles
                 libro.setLibros_disponibles(libro.getLibros_disponibles() - cantidadPrestar);
@@ -357,9 +382,15 @@ public class CrearPrestamoController {
                 // Añadir el nuevo detalle a la lista
                 listaDetalles.add(nuevoDetalle);
             }
+            prestamo.setId_detalleprestamo(listaDetalles);
+            
+            for(DetallePrestamo detalles: listaDetalles){
+                detalles.setId_prestamo(prestamo);
+            }
+             return listaDetalles;
         }
-
-        return listaDetalles;  // Retorna la lista de detalles procesados
+        
+        return null;
     }
 
     public void limpiar() {

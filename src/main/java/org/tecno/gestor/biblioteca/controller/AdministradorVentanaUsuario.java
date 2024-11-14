@@ -47,7 +47,6 @@ public class AdministradorVentanaUsuario {
             Stage modalStage = crearVentanaModal(root, titulo);
             modalStage.showAndWait();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

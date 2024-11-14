@@ -1,0 +1,35 @@
+/* Estilo para el fondo del diálogo */
+.dialog-pane {
+    -fx-background-color: white;
+}
+
+/* Estilo para las celdas del ListView */
+.list-cell {
+    -fx-text-fill: #0b6477; /* Color del texto en las celdas */
+    -fx-background-color: white; /* Fondo blanco para celdas no seleccionadas */
+}
+
+/* Estilo para la celda seleccionada en el ListView */
+.list-cell:filled:selected, .list-cell:focused:selected {
+    -fx-background-color: #0b6477; /* Fondo del color #0b6477 cuando se selecciona */
+    -fx-text-fill: white; /* Texto en blanco cuando se selecciona */
+}
+
+#boton{
+	-fx-background-color: transparent;
+	-fx-border-color: transparent;
+	-fx-text-fill:  #14919B;
+	-fx-font-size: 17px;
+	-fx-padding: 10px 20px;
+}
+
+#boton:hover{
+	-fx-background-color:  #14919B;
+	-fx-text-fill:  #FFFFFF;
+
+}
+
+#boton:pressed{
+	-fx-background-color: #42d0da;
+	-fx-text-fill:  #FFFFFF;
+}

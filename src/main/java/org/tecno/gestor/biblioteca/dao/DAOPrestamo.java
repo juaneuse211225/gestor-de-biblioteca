@@ -18,6 +18,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.scene.control.Alert;
 
 public class DAOPrestamo {
 
@@ -85,21 +86,20 @@ public class DAOPrestamo {
     }
 
     public Prestamo EncontrarPrestamoActivoOMoraPorUsuario(Cuenta idUsuario) {
-    try {
-        TypedQuery<Prestamo> query = em.createQuery("SELECT p FROM Prestamo p WHERE p.id_cuenta = :id_cuenta AND (p.estado_prestamo = 'ACTIVO' OR p.estado_prestamo = 'EN_MORA')", Prestamo.class);
-        query.setParameter("id_cuenta", idUsuario);
+        try {
+            TypedQuery<Prestamo> query = em.createQuery("SELECT p FROM Prestamo p WHERE p.id_cuenta = :id_cuenta AND (p.estado_prestamo = 'ACTIVO' OR p.estado_prestamo = 'EN_MORA')", Prestamo.class);
+            query.setParameter("id_cuenta", idUsuario);
 
-        Prestamo prestamo = query.getSingleResult();
-        
-        // Refrescar el préstamo para asegurarse de que los datos sean los más recientes
-        em.refresh(prestamo);
+            Prestamo prestamo = query.getSingleResult();
 
-        return prestamo;
-    } catch (NoResultException e) {
-        return null; // No hay préstamos activos o en mora
+            // Refrescar el préstamo para asegurarse de que los datos sean los más recientes
+            em.refresh(prestamo);
+
+            return prestamo;
+        } catch (NoResultException e) {
+            return null; // No hay préstamos activos o en mora
+        }
     }
-}
-
 
     public List<Prestamo> EncontrarPrestamosActivos() {
         try {
@@ -114,32 +114,51 @@ public class DAOPrestamo {
     public Map<Month, List<Prestamo>> obtenerPrestamosEntreFechas(LocalDate fechaInicial, LocalDate fechaFinal) {
         // Validar las fechas
         if (fechaInicial.isAfter(fechaFinal)) {
-            throw new IllegalArgumentException("La fecha inicial no puede ser posterior a la fecha final.");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("La fecha inicial no puede ser posterior a la fecha final.");
+            alert.setTitle("Error");
+            alert.setHeaderText("Verificacion de fechas");
+            alert.showAndWait();
+            return null;
         }
 
-        String jpql = "SELECT p FROM Prestamo p "
-                + "WHERE p.fecha_inicio_prestamo BETWEEN :fechaInicial AND :fechaFinal "
-                + "ORDER BY p.fecha_inicio_prestamo ASC";
+        // Iniciar una transacción
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();  // Iniciar la transacción
 
-        Query query = em.createQuery(jpql);
-        query.setParameter("fechaInicial", fechaInicial);
-        query.setParameter("fechaFinal", fechaFinal);
+            String jpql = "SELECT p FROM Prestamo p "
+                    + "WHERE p.fecha_inicio_prestamo BETWEEN :fechaInicial AND :fechaFinal "
+                    + "ORDER BY p.fecha_inicio_prestamo ASC";
 
-        // Ejecutar la consulta y obtener los resultados
-        List<Prestamo> prestamos = query.getResultList();
-        Map<Month, List<Prestamo>> prestamosPorMes = new HashMap<>();
+            Query query = em.createQuery(jpql);
+            query.setParameter("fechaInicial", fechaInicial);
+            query.setParameter("fechaFinal", fechaFinal);
 
-        // Agrupar préstamos por mes
-        for (Prestamo prestamo : prestamos) {
-            LocalDate fechaPrestamo = prestamo.getFecha_inicio_prestamo(); // Asegúrate de que este método devuelva LocalDate
-            Month mes = fechaPrestamo.getMonth();
+            // Ejecutar la consulta y obtener los resultados
+            List<Prestamo> prestamos = query.getResultList();
+            Map<Month, List<Prestamo>> prestamosPorMes = new HashMap<>();
 
-            // Agregar préstamo al mapa
-            prestamosPorMes.putIfAbsent(mes, new ArrayList<>());
-            prestamosPorMes.get(mes).add(prestamo);
+            // Agrupar préstamos por mes
+            for (Prestamo prestamo : prestamos) {
+                LocalDate fechaPrestamo = prestamo.getFecha_inicio_prestamo();
+                Month mes = fechaPrestamo.getMonth();
+
+                // Agregar préstamo al mapa
+                prestamosPorMes.putIfAbsent(mes, new ArrayList<>());
+                prestamosPorMes.get(mes).add(prestamo);
+            }
+
+            tx.commit();  // Confirmar la transacción
+
+            return prestamosPorMes;
+
+        } catch (Exception e) {
+            if (tx.isActive()) {
+                tx.rollback();  // Hacer rollback en caso de error
+            }
+            throw e;  // Propagar el error
         }
-
-        return prestamosPorMes;
     }
 
     public List<Prestamo> EncontrarPrestamoMora() {
@@ -151,7 +170,7 @@ public class DAOPrestamo {
             return null; // No hay préstamos activos o en mora
         }
     }
-    
+
     public void RefrescarPrestamo(Prestamo prestamo) {
         EntityTransaction tx = null;
         try {

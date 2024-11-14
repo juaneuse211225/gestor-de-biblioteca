@@ -23,7 +23,7 @@ public class DAOCuenta {
      * @param us nueva instancia
      */
     public void Crear(Cuenta us) {
-        if (ExisteID(us.getId())) {
+        
             EntityTransaction tx = null;
             try {
                 tx = em.getTransaction();
@@ -36,9 +36,7 @@ public class DAOCuenta {
                 }
                 throw new RuntimeException("Error al crear el Cuenta", e);
             }
-        } else {
-            System.out.println("La cuenta ya existe " + us.getId());
-        }
+        
     }
 
     /**
@@ -47,7 +45,7 @@ public class DAOCuenta {
      * @param us Instancia de la entidad
      */
     public void Actualizar(Cuenta us) {
-        if (ExisteID(us.getId())) {
+       
             EntityTransaction tx = null;
             try {
                 tx = em.getTransaction();
@@ -61,11 +59,7 @@ public class DAOCuenta {
                 throw new RuntimeException("Error al actualizar el usuario", e);
             }
 
-        } else {
-
-            System.out.println("La cuenta no existe " + us.getId());
-
-        }
+       
     }
 
     public void Eliminar(Cuenta cuenta) {
@@ -115,17 +109,30 @@ public class DAOCuenta {
      * <code>false</code> si no existe
      */
     public boolean ExisteID(long id) {
-        try {
-            em.getReference(Cuenta.class, id);
-            return true;
-        } catch (EntityNotFoundException ex) {
-            return false;
-        }
+        Cuenta cuenta = em.find(Cuenta.class, id);
+            if(cuenta != null){
+                return true;
+            }else{
+                return false;
+            }
     }
 
-    public List<Cuenta> EncontrarPorTipoCuenta(TipoCuenta tipo_cuenta) {
+    public List<Cuenta> EncontrarUsuarios() {
         TypedQuery<Cuenta> query = em.createQuery("SELECT c FROM Cuenta c WHERE c.tipo_cuenta = :tipo_cuenta", Cuenta.class);
-        query.setParameter("tipo_cuenta", tipo_cuenta);
+        query.setParameter("tipo_cuenta", TipoCuenta.USUARIO);
+        List<Cuenta> listas = query.getResultList();
+        for (Cuenta cuenta : listas) {
+            em.refresh(cuenta);
+
+        }
+
+        return listas;
+    }
+    
+    public List<Cuenta> EncontrarCuentas() {
+        TypedQuery<Cuenta> query = em.createQuery("SELECT c FROM Cuenta c WHERE c.tipo_cuenta = :tipo_bibliotecario OR c.tipo_cuenta = :tipo_administrador", Cuenta.class);
+        query.setParameter("tipo_bibliotecario", TipoCuenta.BIBLIOTECARIO);
+        query.setParameter("tipo_administrador", TipoCuenta.ADMINISTRADOR);
         List<Cuenta> listas = query.getResultList();
         for (Cuenta cuenta : listas) {
             em.refresh(cuenta);

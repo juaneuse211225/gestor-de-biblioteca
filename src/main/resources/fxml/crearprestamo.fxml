@@ -48,9 +48,9 @@
          <children>
             <TableView id="tabla" fx:id="tabla_detalleprestamo" layoutX="503.0" layoutY="103.0" prefHeight="315.0" prefWidth="453.0" stylesheets="@../CSS/estilos.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="467.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0">
               <columns>
-                <TableColumn fx:id="Column_isbn" prefWidth="52.0" text="ISBN" />
-                <TableColumn fx:id="Column_titulo" prefWidth="261.0" text="TITULO" />
-                  <TableColumn fx:id="Column_ejemplares" prefWidth="138.0" text="N° EJEMPLARES" />
+                <TableColumn fx:id="Column_isbn" editable="false" prefWidth="52.0" text="ISBN" />
+                <TableColumn fx:id="Column_titulo" editable="false" prefWidth="261.0" text="TITULO" />
+                  <TableColumn fx:id="Column_ejemplares" editable="false" prefWidth="138.0" text="CANT. A PRESTAR" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

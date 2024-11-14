@@ -80,6 +80,10 @@ public class LibraryService {
     public List<Libro> Encontrar_Libros() {
         return d_libro.findAllEntities();
     }
+    
+    public List<Libro> Encontrar_Activos() {
+        return d_libro.EncontrarActivos();
+    }
 
     public void Actualizar_Libro(Libro libro) {
         d_libro.update(libro);
@@ -100,9 +104,14 @@ public class LibraryService {
         return d_categoria.EncontrarTodasEntitidades();
     }
     
-    public List<Cuenta> Encontrar_Cuenta_por_Tipo(TipoCuenta tipo_cuenta){
+    public List<Cuenta> Encontrar_Usuarios(){
     
-        return d_cuenta.EncontrarPorTipoCuenta(tipo_cuenta);
+        return d_cuenta.EncontrarUsuarios();
+    }
+    
+    public List<Cuenta> Encontrar_Admin(){
+    
+        return d_cuenta.EncontrarCuentas();
     }
     
     public List<Libro> Encontrar_Libro_por_Disponibilidad(){
@@ -129,6 +138,10 @@ public class LibraryService {
     
     public boolean exite_cuenta(long id){
        return d_cuenta.ExisteID(id);
+    }
+    
+    public boolean exite_libro(long id){
+       return d_libro.ExisteID(id);
     }
 
     public void Actualizar_Prestamo(Prestamo prestamo) {

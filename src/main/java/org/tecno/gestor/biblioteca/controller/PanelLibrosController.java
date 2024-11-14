@@ -166,7 +166,7 @@ public class PanelLibrosController {
     public void CargarDatosEnTabla() {
         libros.clear();
         tabla_libros.getItems().clear();
-        libros.addAll(ls.Encontrar_Libros());
+        libros.addAll(ls.Encontrar_Activos());
         tabla_libros.setItems(FiltroLibros);
     }
 
@@ -212,11 +212,4 @@ public class PanelLibrosController {
         // Cargar los datos actualizados en la tabla después de cerrar la ventana
         CargarDatosEnTabla();
     }
-    TipoCuenta rolUsuarioActual;
-
-    public void setRolUsuarioActual(TipoCuenta rolUsuario) {
-        this.rolUsuarioActual = rolUsuario;
-
-    }
-
 }

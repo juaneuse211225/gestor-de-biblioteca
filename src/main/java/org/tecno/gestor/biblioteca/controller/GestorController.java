@@ -1,8 +1,8 @@
 package org.tecno.gestor.biblioteca.controller;
 
+import java.io.IOException;
 import org.tecno.gestor.biblioteca.config.HibernateUtil;
 import org.tecno.gestor.biblioteca.enums.TipoCuenta;
-import java.io.IOException;
 import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,13 +20,19 @@ import javafx.stage.Stage;
 
 public class GestorController {
 
+    private PanelLibrosController panelLibrocontroll;
+    private PanelUsuarioController panelUsuarioController;
     private double xOffset = 0;
     private double yOffset = 0;
-    BorderPane panelLibro, panelUsuario, panelcrearPrestamo, panelcrearDevolucion, panelinformes;
-    FXMLLoader loader, loader2;
+    private BorderPane panelLibro, panelCuenta, panelUsuario, panelcrearPrestamo, panelcrearDevolucion, panelinformes;
+    private FXMLLoader loader, loader2;
+    private TipoCuenta rolUsuarioActual;
 
     @FXML
     private StackPane Panel_Stack;
+
+    @FXML
+    private Button bot_PanelCuenta;
 
     @FXML
     private Button bot_PanelUsuario;
@@ -66,8 +72,6 @@ public class GestorController {
 
     @FXML
     private TitledPane usuarios;
-    private TipoCuenta rolUsuarioActual;  // Esto contiene el rol del usuario logueado
-    private PanelUsuarioController panelUsuarioController;
 
     @FXML
     public void initialize() {
@@ -81,11 +85,11 @@ public class GestorController {
             loader = new FXMLLoader(getClass().getResource("/fxml/PanelLibros.fxml"));
             panelLibro = loader.load();
             panelLibrocontroll = loader.getController();
-
+            panelCuenta = FXMLLoader.load(getClass().getResource("/fxml/PanelCuenta.fxml"));
             panelcrearDevolucion = FXMLLoader.load(getClass().getResource("/fxml/panelDevolucion.fxml"));
             panelinformes = FXMLLoader.load(getClass().getResource("/fxml/informe.fxml"));
 
-            Panel_Stack.getChildren().addAll(panelUsuario, panelLibro, panelcrearPrestamo, panelinformes, panelcrearDevolucion);
+            Panel_Stack.getChildren().addAll(panelCuenta, panelUsuario, panelLibro, panelcrearPrestamo, panelinformes, panelcrearDevolucion);
 
             mostrarPanel(Panel_Stack, panelUsuario);
 
@@ -111,13 +115,6 @@ public class GestorController {
     }
 
     @FXML
-    void Cerrar_Action(ActionEvent event) {
-        HibernateUtil.cerrar();
-        Stage stage = getStage();
-        stage.close();
-    }
-
-    @FXML
     void MoverPressed(MouseEvent event) {
         xOffset = event.getSceneX();
         yOffset = event.getSceneY();
@@ -131,13 +128,15 @@ public class GestorController {
     }
 
     @FXML
+    void Cerrar_Action(ActionEvent event) {
+        HibernateUtil.cerrar();
+        Stage stage = getStage();
+        stage.close();
+    }
+
+    @FXML
     void PanelLibrosAction(ActionEvent event) {
         mostrarPanel(Panel_Stack, panelLibro);
-
-        // Pasar el rol al PanelLibrosController cada vez que se muestra el panel
-        panelLibrocontroll.setRolUsuarioActual(rolUsuarioActual);
-
-        // Cargar los datos actualizados en la tabla
         panelLibrocontroll.CargarDatosEnTabla();
     }
 
@@ -161,22 +160,21 @@ public class GestorController {
         mostrarPanel(Panel_Stack, panelinformes);
     }
 
-    PanelLibrosController panelLibrocontroll;
+    @FXML
+    void PanelCuentaAction(ActionEvent event) {
+        mostrarPanel(Panel_Stack, panelCuenta);
+    }
 
     public void inicializar(TipoCuenta tipoCuenta) {
         this.rolUsuarioActual = tipoCuenta;
 
-        // Pasar el rol al controlador de libros
-        // Lógica para ocultar botones según el rol
         if (tipoCuenta == TipoCuenta.BIBLIOTECARIO) {
             informes.setVisible(false);
+            bot_PanelCuenta.setVisible(false);
+            bot_PanelCuenta.setManaged(false);
         } else if (tipoCuenta == TipoCuenta.ADMINISTRADOR) {
             informes.setVisible(true);
         }
-
-        // También pasa el rol al PanelUsuarioController
-        panelLibrocontroll.setRolUsuarioActual(rolUsuarioActual);
-        panelUsuarioController.setRolUsuarioActual(rolUsuarioActual);
     }
 
     private void mostrarPanel(StackPane stackPane, BorderPane PanelAMostrar) {
@@ -192,4 +190,5 @@ public class GestorController {
         Stage stage = (Stage) Panel_Stack.getScene().getWindow();
         return stage;
     }
+
 }

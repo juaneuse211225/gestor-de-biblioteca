@@ -17,11 +17,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.tecno.gestor.biblioteca.enums.EstadoCuenta;
 
 public class LoginController {
 
@@ -89,7 +91,7 @@ public class LoginController {
     
     public int autenticacion(String contraseña, Long id) {
         Cuenta cuenta = ls.Encontrar_Cuenta(id);
-        if (cuenta != null && cuenta.getContraseña().equals(contraseña)) {
+        if (cuenta != null && cuenta.getContraseña().equals(contraseña) && (cuenta.getEstado_cuenta() == EstadoCuenta.ACTIVO)) {
 
             if (cuenta.getTipo_cuenta().equals(TipoCuenta.ADMINISTRADOR)) {
                 return 2;
@@ -129,6 +131,8 @@ public class LoginController {
         stage.setWidth(1200);
         stage.centerOnScreen();
         stage.setTitle("Gestor de biblioteca");
+        Image a = new Image(getClass().getResource("/img/image832.png").toString());
+        stage.getIcons().add(a);
         stage.initStyle(StageStyle.UNDECORATED);
         win.close();
         stage.show();

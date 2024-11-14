@@ -31,10 +31,10 @@
                         <DatePicker id="fecha" fx:id="fecha_inicial" layoutX="9.0" layoutY="23.0" prefHeight="30.0" promptText="Fecha Incial" stylesheets="@../CSS/estilos.css" />
                         <DatePicker id="fecha" fx:id="fecha_final" layoutX="221.0" layoutY="23.0" prefHeight="30.0" promptText="Fecha final" stylesheets="@../CSS/estilos.css" />
                         <Separator layoutX="10.0" layoutY="61.0" prefHeight="8.0" prefWidth="914.0" />
-                        <Button id="boton" fx:id="buscar" layoutX="460.0" layoutY="14.0" mnemonicParsing="false" onAction="#BuscarAction" stylesheets="@../CSS/estilos.css" text="Buscar" />
-                        <Button id="boton" fx:id="guardar" layoutX="568.0" layoutY="14.0" mnemonicParsing="false" onAction="#GuardarAction" stylesheets="@../CSS/estilos.css" text="Guardar informe" />
+                        <Button id="boton" fx:id="buscar" layoutX="460.0" layoutY="14.0" mnemonicParsing="false" onAction="#BuscarAction" stylesheets="@../CSS/estilos.css" text="CONSULTAR" />
+                        <Button id="boton" fx:id="guardar" layoutX="619.0" layoutY="14.0" mnemonicParsing="false" onAction="#GuardarAction" stylesheets="@../CSS/estilos.css" text="REPORTE" />
                         <Label id="etiqueta" layoutX="14.0" layoutY="6.0" stylesheets="@../CSS/estilos.css" text="Rango de fechas" />
-                        <BarChart fx:id="Grafico" layoutX="110.0" layoutY="75.0" prefHeight="380.0" prefWidth="700.0" title="Prestamos realizados y devueltos">
+                        <BarChart fx:id="Grafico" layoutX="187.0" layoutY="76.0" prefHeight="358.0" prefWidth="561.0" title="Prestamos realizados y devueltos">
                           <xAxis>
                             <CategoryAxis fx:id="ejeX" label="Meses" tickLabelGap="10.0" />
                           </xAxis>
@@ -48,18 +48,19 @@
             </Tab>
           <Tab fx:id="Informe_pendientes" text="Informe de pendientes">
                <content>
-                  <Pane fx:id="Panel_pendientes" prefHeight="474.0" prefWidth="930.0">
+                  <Pane fx:id="Panel_pendientes" prefHeight="415.0" prefWidth="930.0">
                      <children>
-                        <TableView id="tabla" fx:id="Table_informe" layoutX="14.0" layoutY="90.0" prefHeight="372.0" prefWidth="905.0" stylesheets="@../CSS/estilos.css">
+                        <TableView id="tabla" fx:id="Table_informe" layoutX="14.0" layoutY="73.0" prefHeight="378.0" prefWidth="905.0" stylesheets="@../CSS/estilos.css" tableMenuButtonVisible="true">
                           <columns>
-                            <TableColumn fx:id="Columna_fechaprestada" prefWidth="75.0" text="Fecha prestada" />
-                              <TableColumn fx:id="Columna_fechadevolver" prefWidth="75.0" text="Fecha Estimada" />
-                              <TableColumn fx:id="Column_diasenmora" prefWidth="75.0" text="Dias en mora" />
-                              <TableColumn fx:id="Columna_usuario" prefWidth="75.0" text="Usuario">
+                              <TableColumn fx:id="Column_num_prestamo" editable="false" prefWidth="75.0" text="ID PRESTAMO" />
+                            <TableColumn fx:id="Columna_fechaprestada" editable="false" prefWidth="75.0" text="FECHA DEL PRESTAMO" />
+                              <TableColumn fx:id="Columna_fechadevolver" editable="false" prefWidth="75.0" text="FECHA ESTIMADA" />
+                              <TableColumn fx:id="Column_diasenmora" editable="false" prefWidth="75.0" text="DIAS EN MORA" />
+                              <TableColumn fx:id="Columna_usuario" editable="false" prefWidth="355.0" text="DATOS DEL USUARIO">
                                  <columns>
-                                    <TableColumn fx:id="Columna_nombreusuario" prefWidth="75.0" text="Nombre" />
-                                    <TableColumn fx:id="Columna_correo" prefWidth="75.0" text="Correo" />
-                                    <TableColumn fx:id="Columna_telefono" prefWidth="75.0" text="N° telefono" />
+                                    <TableColumn fx:id="Columna_nombreusuario" editable="false" prefWidth="75.0" text="NOMBRE" />
+                                    <TableColumn fx:id="Columna_correo" editable="false" prefWidth="91.0" text="CORREO" />
+                                    <TableColumn fx:id="Columna_telefono" editable="false" prefWidth="59.0" text="N° TELEFONO" />
                                  </columns>
                               </TableColumn>
                           </columns>
@@ -67,8 +68,30 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <Button id="boton" fx:id="Bot_Consulta" layoutX="14.0" layoutY="25.0" mnemonicParsing="false" onAction="#ConsultaAction" stylesheets="@../CSS/estilos.css" text="Consultar" />
-                        <Button id="boton" fx:id="Bot_reporte" layoutX="147.0" layoutY="25.0" mnemonicParsing="false" onAction="#Reporte_Action" stylesheets="@../CSS/estilos.css" text="Generar reporte" />
+                        <Button id="boton" fx:id="Bot_Consulta" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#ConsultaAction" stylesheets="@../CSS/estilos.css" text="CONSULTAR" />
+                        <Button id="boton" fx:id="Bot_reporte" layoutX="172.0" layoutY="14.0" mnemonicParsing="false" onAction="#Reporte_Action" stylesheets="@../CSS/estilos.css" text="REPORTE" />
+                     </children>
+                  </Pane>
+               </content>
+            </Tab>
+            <Tab fx:id="_informe_inventario" text="Lista de inventario">
+               <content>
+                  <Pane fx:id="panel_inventario" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <TableView id="tabla" fx:id="tabla_inventario" layoutX="12.0" layoutY="85.0" prefHeight="361.0" prefWidth="906.0" stylesheets="@../CSS/estilos.css" tableMenuButtonVisible="true">
+                          <columns>
+                            <TableColumn fx:id="Column_isbn" prefWidth="75.0" text="ISBN" />
+                            <TableColumn fx:id="Column_titutlo" editable="false" prefWidth="75.0" text="TITULO" />
+                              <TableColumn fx:id="Column_autor" editable="false" prefWidth="75.0" text="AUTOR" />
+                              <TableColumn fx:id="Column_categoria" editable="false" prefWidth="131.0" text="CATEGORIA" />
+                              <TableColumn fx:id="Column_disponibles" editable="false" prefWidth="124.0" text="DISPONIBLES" />
+                              <TableColumn fx:id="Column_total" editable="false" prefWidth="93.0" text="TOTALES" />
+                              <TableColumn fx:id="Column_estado" editable="false" minWidth="0.0" prefWidth="100.0" text="ESTADO" />
+                              <TableColumn fx:id="Column_ubicacion" editable="false" prefWidth="219.0" text="UBICACION" />
+                          </columns>
+                        </TableView>
+                        <Button id="boton" fx:id="Bot_Consulta1" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#ConsultainventarioAction" stylesheets="@../CSS/estilos.css" text="CONSULTAR" />
+                        <Button id="boton" fx:id="reporte_inventario" layoutX="169.0" layoutY="14.0" mnemonicParsing="false" onAction="#reporte_inventario_action" stylesheets="@../CSS/estilos.css" text="REPORTE" />
                      </children>
                   </Pane>
                </content>

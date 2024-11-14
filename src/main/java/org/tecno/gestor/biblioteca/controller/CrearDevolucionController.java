@@ -1,6 +1,5 @@
 package org.tecno.gestor.biblioteca.controller;
 
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -8,9 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -32,6 +33,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.tecno.gestor.biblioteca.enums.EstadoPrestamo;
 import org.tecno.gestor.biblioteca.model.Cuenta;
@@ -85,7 +87,12 @@ public class CrearDevolucionController {
 
     @FXML
     public void initialize() {
-
+        Platform.runLater(() -> {
+            Scene scene = tablaDetalleDevolcion.getScene();
+            if (scene != null) {
+                scene.getStylesheets().add(getClass().getResource("/CSS/spinner.css").toExternalForm());
+            }
+        });
         text_busqueda.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 text_busqueda.setText(newValue.replaceAll("[^\\d]", ""));
@@ -104,7 +111,7 @@ public class CrearDevolucionController {
 
     @FXML
     void BuscarAction(ActionEvent event) {
-        
+
         if (text_busqueda.getText().trim().isBlank()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Ingrese el N° de identificacion");
@@ -115,10 +122,11 @@ public class CrearDevolucionController {
         }
 
         String id = text_busqueda.getText().trim();
-        
+
         tablaDetalleDevolcion.getItems().clear();
 
         Cuenta cuenta = ls.Encontrar_Cuenta(Long.parseLong(id));
+        ls.refrescarCuenta(cuenta);
         if (cuenta == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Cuenta no encontrada");
@@ -127,7 +135,7 @@ public class CrearDevolucionController {
             alert.showAndWait();
             return;
         }
-        
+
         prestamo = mostrarDialogo(cuenta);
         if (prestamo == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -135,7 +143,7 @@ public class CrearDevolucionController {
             alert.setHeaderText("Selecciona un prestamo");
             alert.setContentText("Por favor seleccionar un prestamo de la lista");
             alert.showAndWait();
-            
+
             return;
         }
 
@@ -157,7 +165,7 @@ public class CrearDevolucionController {
                 };
             }
         });
-        
+
         fecha_final.setValue(LocalDate.now());
         setDesactivar(false);
 
@@ -211,11 +219,19 @@ public class CrearDevolucionController {
 
         Dialog<Prestamo> dialog = new Dialog<>();
         dialog.setTitle("Elegir préstamo");
+        dialog.getDialogPane().getStylesheets().add(getClass().getResource("/CSS/dialog.css").toExternalForm());
         dialog.initModality(Modality.APPLICATION_MODAL);
 
         ButtonType seleccionarButtonType = new ButtonType("Seleccionar", ButtonBar.ButtonData.OK_DONE);
         ButtonType cancelarButtonType = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+
         dialog.getDialogPane().getButtonTypes().addAll(seleccionarButtonType, cancelarButtonType);
+
+        Button seleccionarButton = (Button) dialog.getDialogPane().lookupButton(seleccionarButtonType);
+        seleccionarButton.setId("boton");
+
+        Button cancelarButton = (Button) dialog.getDialogPane().lookupButton(cancelarButtonType);
+        cancelarButton.setId("boton");
 
         ListView<Prestamo> listView = new ListView<>();
         listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -301,7 +317,7 @@ public class CrearDevolucionController {
 
                     spinner.setValueFactory(valueFactory);
                     spinner.getValueFactory().setValue(item != null ? item : 0);
-
+                    spinner.getStyleClass().add("custom-spinner");
                     setGraphic(spinner);
 
                     spinner.valueProperty().addListener((obs, valorViejo, valorNuevo) -> {
@@ -340,6 +356,7 @@ public class CrearDevolucionController {
                     SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, cantidadFaltante);
                     spinner.setValueFactory(valueFactory);
                     spinner.getValueFactory().setValue(item != null ? item : 0);
+                    spinner.getStyleClass().add("custom-spinner");
                     setGraphic(spinner);
 
                     spinner.valueProperty().addListener((obs, valorViejo, valorNuevo) -> {
@@ -352,7 +369,7 @@ public class CrearDevolucionController {
 
     @FXML
     void GuardarAction(ActionEvent event) {
-        if(fecha_final.getValue() == null  || Descripcion.getText().isBlank()){
+        if (fecha_final.getValue() == null || Descripcion.getText().isBlank()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Ingresa los campos");
             alert.setHeaderText("Ingresa los campos");
@@ -360,7 +377,7 @@ public class CrearDevolucionController {
             alert.showAndWait();
             return;
         }
-        
+
         Devolucion devolucion = new Devolucion(fecha_final.getValue(), Descripcion.getText().trim(), prestamo);
         List<DetalleDevolucion> devoluciones = generarDetallesDevolucion(devolucion);
 
@@ -381,10 +398,10 @@ public class CrearDevolucionController {
         Cuenta cuenta = prestamo.getId_cuenta();
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Devolucion exitosa");
-            alert.setHeaderText("Devolucion exitosa");
-            alert.setContentText("La devolucion fue guardada con exito");
-            alert.showAndWait();
+        alert.setTitle("Devolucion exitosa");
+        alert.setHeaderText("Devolucion exitosa");
+        alert.setContentText("La devolucion fue guardada con exito");
+        alert.showAndWait();
         limpiar();
         setDesactivar(true);
     }
