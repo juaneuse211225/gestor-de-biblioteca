@@ -131,7 +131,7 @@ public class CrearDevolucionController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Cuenta no encontrada");
             alert.setHeaderText("El usuario no encontrado o inexistente");
-            alert.setContentText("el Usaurio con N° " + id + " no existe");
+            alert.setContentText("el Usuario con N° " + id + " no existe");
             alert.showAndWait();
             return;
         }

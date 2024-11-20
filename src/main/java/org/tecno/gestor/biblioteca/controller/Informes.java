@@ -67,7 +67,7 @@ public class Informes {
 
     @FXML
     private Button Bot_reporte;
-    
+
     @FXML
     private Button Bot_Consulta1;
 
@@ -276,7 +276,6 @@ public class Informes {
     @FXML
     void GuardarAction(ActionEvent event) throws FileNotFoundException {
         BuscarAction(event);
-        cargarPrestamos();
         String rutaArchivo;
         File archivoSeleccionado = seleccionarDirectorio("Guardar informe de Prestamos", "Informe de prestamos.pdf", getStage(event));
 
@@ -308,12 +307,12 @@ public class Informes {
             generarPDFMora(file);
         }
     }
-    
-    public Stage getStage(ActionEvent event){
+
+    public Stage getStage(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         return stage;
     }
-    
+
     public File seleccionarDirectorio(String titulo, String nombre_archivo, Stage stage) {
         FileChooser fileChooser = new FileChooser();
         File homeDir = new File(System.getProperty("user.home"));
@@ -334,11 +333,11 @@ public class Informes {
     @FXML
     void reporte_inventario_action(ActionEvent event) {
         File file = seleccionarDirectorio("Guardar informe de inventario", "Informe de inventario.pdf", getStage(event));
-        if(file != null){
+        if (file != null) {
             GenerarPDFInventario(file);
         }
     }
-    
+
     @FXML
     void ConsultainventarioAction(ActionEvent event) {
         List<Libro> libros = ls.Encontrar_Libros();
@@ -356,20 +355,19 @@ public class Informes {
             tabla_inventario.setItems(listalibros);
         }
     }
-    
 
     private void cargarPrestamos() {
         // Aquí obtienes la lista de préstamos en mora o lo que quieras cargar
-        
+
         List<Prestamo> prestamos = ls.EncontrarPrestamosEnmora();  // Supongamos que este método obtiene los préstamos
         if (prestamos.isEmpty()) {
-            
+
             listaPrestamos.clear();
             listaPrestamos.addAll(prestamos);
             Table_informe.setItems(listaPrestamos);
-            
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            
+
             alert.setHeaderText("No encontrados");
             alert.setContentText("No se encontraron prestamos en mora");
             alert.showAndWait();
@@ -490,24 +488,24 @@ public class Informes {
             }
         }
     }
-    
-    public void GenerarPDFInventario(File file){
+
+    public void GenerarPDFInventario(File file) {
         Document documento = new Document(PageSize.LETTER);
-        try{
+        try {
             PdfWriter.getInstance(documento, new FileOutputStream(file));
             documento.open();
-            
+
             Font fuente = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 24, BaseColor.DARK_GRAY);
             Paragraph titulo = new Paragraph("Informe de inventario", fuente);
             titulo.setAlignment(Element.ALIGN_CENTER);
-            
+
             documento.add(titulo);
             documento.add(new Paragraph(Chunk.NEWLINE));
-            
+
             PdfPTable tabla = new PdfPTable(7);
             tabla.setWidthPercentage(100);
-            tabla.setWidths(new float[]{1f, 2.5f, 2.5f, 2f, 1.5f, 2.3f, 3f});
-            
+            tabla.setWidths(new float[]{2.3f, 2.5f, 2.5f, 2f, 1f, 2.3f, 2.7f});
+
             tabla.addCell("ISBN");
             tabla.addCell("Titulo");
             tabla.addCell("Autor");
@@ -515,8 +513,8 @@ public class Informes {
             tabla.addCell("Disp.");
             tabla.addCell("Estado");
             tabla.addCell("Ubicacion");
-            
-            for(Libro libro: tabla_inventario.getItems()){
+
+            for (Libro libro : tabla_inventario.getItems()) {
                 String isbn = String.valueOf(libro.getIsbn());
                 tabla.addCell(isbn);
                 tabla.addCell(libro.getTitulo());
@@ -526,20 +524,20 @@ public class Informes {
                 tabla.addCell(libro.getEstado_libro().toString());
                 tabla.addCell(libro.getUbicacion());
             }
-            
+
             documento.add(tabla);
             documento.add(new Paragraph(Chunk.NEWLINE));
-            
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Reporte exitoso");
             alert.setHeaderText("Reporte exitoso");
             alert.setContentText("Reporte creado exitosamente en " + file.toString());
             alert.showAndWait();
-            
-        }catch(DocumentException | IOException ex){
+
+        } catch (DocumentException | IOException ex) {
             ex.printStackTrace();
-        }finally{
-            if(documento.isOpen()){
+        } finally {
+            if (documento.isOpen()) {
                 documento.close();
             }
         }
@@ -553,7 +551,7 @@ public class Informes {
 
             // Abrir el documento
             document.open();
-            
+
             Font fuente = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 24, BaseColor.DARK_GRAY);
             Paragraph titulo = new Paragraph("Informe de prestamos en Mora", fuente);
             titulo.setAlignment(Element.ALIGN_LEFT);

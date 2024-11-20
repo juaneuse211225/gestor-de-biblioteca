@@ -53,8 +53,8 @@
                         <TableView id="tabla" fx:id="Table_informe" layoutX="14.0" layoutY="73.0" prefHeight="378.0" prefWidth="905.0" stylesheets="@../CSS/estilos.css" tableMenuButtonVisible="true">
                           <columns>
                               <TableColumn fx:id="Column_num_prestamo" editable="false" prefWidth="75.0" text="ID PRESTAMO" />
-                            <TableColumn fx:id="Columna_fechaprestada" editable="false" prefWidth="75.0" text="FECHA DEL PRESTAMO" />
-                              <TableColumn fx:id="Columna_fechadevolver" editable="false" prefWidth="75.0" text="FECHA ESTIMADA" />
+                            <TableColumn fx:id="Columna_fechaprestada" editable="false" prefWidth="75.0" text="FCH. PRESTAMO" />
+                              <TableColumn fx:id="Columna_fechadevolver" editable="false" prefWidth="75.0" text="FCH. ESTIMADA" />
                               <TableColumn fx:id="Column_diasenmora" editable="false" prefWidth="75.0" text="DIAS EN MORA" />
                               <TableColumn fx:id="Columna_usuario" editable="false" prefWidth="355.0" text="DATOS DEL USUARIO">
                                  <columns>

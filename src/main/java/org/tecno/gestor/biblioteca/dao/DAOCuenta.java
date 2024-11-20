@@ -77,11 +77,6 @@ public class DAOCuenta {
     public Cuenta BuscarEntidad(long id) {
         Cuenta cuenta2 = em.find(Cuenta.class, id);
 
-        if (cuenta2 == null) {
-            throw new EntityNotFoundException("Cuenta no encontrada con ID: " + id);
-        }
-
-        
         return cuenta2;
     }
 
@@ -143,6 +138,7 @@ public class DAOCuenta {
     }
 
     public void RefrescarCuenta(Cuenta cuenta) {
+        if(cuenta != null){
         EntityTransaction tx = null;
         try {
             if (!em.getTransaction().isActive()) {
@@ -158,6 +154,9 @@ public class DAOCuenta {
                 tx.rollback();
             }
             throw new RuntimeException("Error al refrescar la cuenta", e);
+        }
+    }else{
+            System.out.println("No se puede refrescar una cuenta inexistente");
         }
     }
 
