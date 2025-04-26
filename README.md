@@ -43,13 +43,6 @@ git clone https://github.com/juaneuse211225/gestor-de-biblioteca.git
 
 4. Ejecutar el proyecto desde NetBeans o tu IDE preferido.
 
-## Estructura del proyecto
-
-- `src/`
-  - `controlador/` - Controladores de vistas JavaFX
-  - `modelo/` - Clases de entidad y conexión a base de datos
-  - `vista/` - Archivos FXML de las interfaces gráficas
-
 ## Autor
 
 - **Juan Esteban** - [GitHub](https://github.com/juaneuse211225)
